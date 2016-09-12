@@ -61,6 +61,13 @@ class SearchController extends BaseController{
 				$keyword = "scontent=" . urlencode($keywords);
 				break;				
 		}
+		if ($time_to!="") {
+			$time_to = date("Y-m-d",$time_to);
+		}
+		if ($time_from!="") {
+			$time_from = date("Y-m-d",$time_from);
+		}
+		
 		$local_url .= $keyword . "&exclude=" . $keywords_not . "&start_applytime=" . $time_from . "&end_applytime=" . $time_to . "&order_by_time=" . $order;
 		$res = Search::get_article($local_url);
         $data = simplexml_load_string($res,'SimpleXMLElement',LIBXML_NOCDATA);

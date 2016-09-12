@@ -115,6 +115,10 @@ $(function(){
 				m[i] = G.request[i];
 			}
 		}
+		if("timeRange" in m){
+			delete m['time_from'];
+			delete m['time_to'];
+		}
 		return G.url('index', originType, m);
 	}
 

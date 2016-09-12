@@ -76,6 +76,24 @@ $(function(){
 				m[i] = o[i];
 			}
 		}
+		if("timeRange" in m){
+			m['time_to'] = moment().unix();
+			switch(m['timeRange']){
+				case 'day':
+					m['time_from'] = m['time_to'] - 86400;
+					break;
+				case 'week':
+					m['time_from'] = m['time_to'] - 86400 * 7;
+					break;
+				case 'month':
+					m['time_from'] = m['time_to'] - 86400 * 31;
+					break;
+				case 'year':
+					m['time_from'] = m['time_to'] - 86400 * 365;
+					break;
+			}
+			delete m['timeRange'];
+		}
 		if(!("keywords" in m) || m.keywords.length <= 1){
 			$('#list-body').empty();
 			return;

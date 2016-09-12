@@ -43,4 +43,9 @@ class IndexController extends BaseController{
 		$this->show('Index/Letter');
 	}
 
+	public function qs(){
+		$kw = IO::I('keywords');
+		header('Location:http://app.gd.gov.cn/searchplatform/zwgksearch.php?searchword='.urlencode($kw).'&page=1');
+	}
+
 }

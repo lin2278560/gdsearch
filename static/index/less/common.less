@@ -13,6 +13,7 @@ body{
 	z-index:1000;
 }
 .left-top-tm{
+	display:block;
 	position:absolute;
 	top:0;
 	left:0;
@@ -157,6 +158,9 @@ body{
 		margin:0;
 		clear:both;
 	}
+	.hd.box{
+		background-image:url(../img/box.png);
+	}
 	.item{
 		display:block;
 		text-decoration:none;
@@ -251,6 +255,13 @@ body{
 	clear:both;
 	position:relative;
 }
+.list-body.limit{
+	.list-item{
+		.content{
+			max-height:24px * 4;
+		}
+	}
+}
 .list-loading{
 	margin:200px auto;
 	background-image:url(../img/loading.gif);
@@ -292,6 +303,7 @@ body{
 		color:#515151;
 		font-size:13px;
 		clear:both;
+		overflow:hidden;
 	}
 	.content{
 		width:100%;
@@ -305,6 +317,7 @@ body{
 		color:#222222;
 		font-size:14px;
 		clear:both;
+		overflow:hidden;
 	}
 	.publisher{
 		position:absolute;

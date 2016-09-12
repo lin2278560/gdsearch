@@ -74,7 +74,8 @@ $(function(){
 			filenumType : (options.filenumType || ''),
 			filenumYear : (options.filenumYear || ''),
 			filenumNum : $('#filenum-num').val(),
-			menucat : options.menucat || '' 
+			menucat : options.menucat || '',
+			advance : 'true'
 		}));
 	});
 

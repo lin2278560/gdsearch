@@ -44,6 +44,7 @@ $(function(){
 			time_from : _tf,
 			time_to : _tt,
 			position : window.options.position || 'all',
+			advance : 'true'
 		}));
 	});
 

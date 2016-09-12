@@ -34,6 +34,7 @@ $(function(){
 			searchtype : options['searchtype'] || '',
 			division : options['division'] || '',
 			onlineservice : options['onlineservice'] || '',
+			advance : 'true'
 		}));
 	});
 

@@ -45,6 +45,7 @@ class LetterController extends BaseController{
 		if(!\Lib\Core\Vericode::check_code($data['vericode'])){
 			IO::E('验证码不正确！');
 		}
+		\Lib\Core\Vericode::flush_code();
 		# TODO
 		IO::O();
 	}

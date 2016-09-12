@@ -34,9 +34,6 @@ $(function(){
 
 	var $iptKw = $('#input-kw').val(G.request['keywords'] || '');
 
-	if("advance" in G.request){
-		$('#advance-search-button').mousedown();
-	}
 
 	$('#advance-search-button').mousedown(function(){
 		window.advance = !window.advance;
@@ -49,6 +46,10 @@ $(function(){
 		}
 		return false;
 	});
+
+	if("advance" in G.request){
+		$('#advance-search-button').mousedown();
+	}
 
 	$('#advance-search-go').click(function(){
 		var kw = $iptKw.val();

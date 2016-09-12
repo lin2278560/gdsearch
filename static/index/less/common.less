@@ -370,7 +370,6 @@ body{
 	border-bottom:1px @grey300 solid;
 	margin:0 0 0 32px;
 	clear:both;
-	overflow:hidden;
 	float:left;
 }
 .textbox{
@@ -438,6 +437,71 @@ body{
 		left:0;
 	}
 }
+.select{
+	width:90px;
+	height:26px;
+	border:1px @grey300 solid;
+	float:left;
+	margin:14px 0 14px 0;
+	position:relative;
+	overflow:hidden;
+	margin-left:16px;
+	cursor:pointer;
+	.selected{
+		width:60px;
+		height:26px;
+		position:absolute;
+		left:0;
+		top:0;
+		line-height:26px;
+		font-size:12px;
+		color:@grey900;
+		text-align:center;
+		overflow:hidden;
+		z-index:100;
+	}
+	.arrow{
+		background-color:@grey100;
+		border-left:1px @grey300 solid;
+		width:29px;
+		height:26px;
+		background-image:url(../img/dragdown.jpg);
+		background-position:center;
+		background-repeat:no-repeat;
+		position:absolute;
+		left:60px;
+		z-index:100;
+	}
+	.list{
+		position:absolute;
+		top:26px;
+		left:-1px;
+		width:90px;
+		border:1px @grey300 solid;
+		background-color:#fff;
+		height:auto;
+		min-height:1px;
+		overflow:hidden;
+		z-index:200;
+		.item{
+			width:100%;
+			height:26px;
+			line-height:26px;
+			text-align:left;
+			clear:both;
+			color:@grey600;
+			font-size:12px;
+			text-indent:12px;
+		}
+		.item:hover{
+			background-color:@grey100;
+			color:@grey900;
+		}
+	}
+}
+.select:hover{
+	overflow:visible;
+}
 .adv-label{
 	width:auto;
 	height:26px;
@@ -452,4 +516,12 @@ body{
 .advance-search{
 	position:relative;
 	display:none;
+}
+.empty-list{
+	width:213px;
+	height:126px;
+	margin:32px 22px;
+	background-image:url(../img/empty.jpg);
+	background-position:7px 7px;
+	background-repeat:no-repeat;
 }

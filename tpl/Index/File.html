@@ -10,6 +10,124 @@
 			反序
 		</a>
 	</div>
+	<div class="advance-search">
+		<div class="adv-line">
+			<div class="textbox">
+				<div class="label">
+					包含的关键词
+				</div>
+				<input type="text" id="input-kw">
+			</div>
+		</div>
+		<div class="adv-line">
+			<div class="adv-label">
+				发文字号：
+			</div>
+			<div class="adv-label">
+				&emsp;&emsp;&emsp;
+			</div>
+			<div class="select" id="filenum-type">
+				<div class="selected">
+					文种
+				</div>
+				<div class="arrow"></div>
+				<div class="list">
+					<div class="item" key="">全部</div>
+					<div class="item" key="粤府令">粤府令</div>
+					<div class="item" key="粤府">粤府</div>
+					<div class="item" key="粤府函">粤府函</div>
+					<div class="item" key="粤府办">粤府办</div>
+					<div class="item" key="粤办函">粤办函</div>
+				</div>
+			</div>
+			<div class="select" id="filenum-year">
+				<div class="selected">
+					年份
+				</div>
+				<div class="arrow"></div>
+				<div class="list">
+					<div class="item" key="">全部</div>
+					<{section name=i loop=$year_list}>
+					<div class="item" key="<{$year_list[i]}>"><{$year_list[i]}></div>
+					<{/section}>
+				</div>
+			</div>
+			<div class="textbox year">
+				<input type="text" id="filenum-num">
+				<div class="label">
+					号
+				</div>
+			</div>
+		</div>
+		<div class="adv-line">
+			<div class="adv-label">
+				成文日期：
+			</div>
+			<div class="adv-label">
+				&emsp;从&emsp;
+			</div>
+			<div class="textbox year">
+				<input type="text" id="input-kw-f-y">
+				<div class="label">
+					年
+				</div>
+			</div>
+			<div class="textbox month">
+				<input type="text" id="input-kw-f-m">
+				<div class="label">
+					月
+				</div>
+			</div>
+			<div class="textbox month">
+				<input type="text" id="input-kw-f-d">
+				<div class="label">
+					日
+				</div>
+			</div>
+			<div class="adv-label">
+				&emsp;至&emsp;
+			</div>
+			<div class="textbox year nm">
+				<input type="text" id="input-kw-t-y">
+				<div class="label">
+					年
+				</div>
+			</div>
+			<div class="textbox month">
+				<input type="text" id="input-kw-t-m">
+				<div class="label">
+					月
+				</div>
+			</div>
+			<div class="textbox month">
+				<input type="text" id="input-kw-t-d">
+				<div class="label">
+					日
+				</div>
+			</div>
+		</div>
+		<div class="adv-line">
+			<div class="adv-label">
+				公文种类：
+			</div>
+			<div class="adv-label">
+				&emsp;&emsp;&emsp;
+			</div>
+			<div class="select" id="menucat">
+				<div class="selected">
+					文种
+				</div>
+				<div class="arrow"></div>
+				<div class="list">
+					<div class="item" key="">全部</div>
+					<div class="item" key="1101">规章</div>
+					<div class="item" key="1102">规范性文件</div>
+					<div class="item" key="1103">其他文件</div>
+				</div>
+			</div>
+			<div class="advance-search-go" id="advance-search-go"></div>
+		</div>
+	</div>
 	<div class="list-body" id="list-body">
 		<div class="list-loading" id="list-loading">
 			

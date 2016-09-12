@@ -46,6 +46,25 @@ $(function(){
 	}).val(G.request['keywords'] || '');
 
 	$.fn.extend({
+		bindOptionDrag : function(option){
+			var varName = option.varname;
+			var map = {};
+			var that = this;
+			$(that).find('.item').each(function(){
+				var k = $(this).attr('key');
+				map[k] = this;
+			});
+			if(varName in G.request && G.request[varName] in map){
+				that.value = $(map[G.request[varName]]).attr('key');
+				$(that).find('.selected').html($(map[G.request[varName]]).html());
+				options[varName] = that.value;
+			}
+			$(that).on('click', '.item', function(){
+				var k = $(this).attr('key');
+				$(that).find('.selected').html($(this).html());
+				options[varName] = that.value = k;
+			});
+		},
 		bindOptionPart : function(option){
 			var varName = option.varname;
 			var map = {};
@@ -75,6 +94,9 @@ $(function(){
 			var i;
 			for(i = 0; i < option.list.length; i ++){
 				$(this).append(genListItem(option.list[i]));
+			}
+			if(option.list.length == 0){
+				$(this).html('<div class="empty-list"></div>');
 			}
 		},
 		refreshPage : function(option){
@@ -128,7 +150,7 @@ $(function(){
 	}
 
 	function genListItem(d){
-		return $('<div class="list-item"><a class="title" href="'+d.url+'" taget="_blank">'+d.title+'</a><div class="url">'+d.url+'</div><div class="content">'+d.content+'</div><div class="publisher">'+(d.publisher || '')+'</div><div class="date">'+d.date+'</div></div>');
+		return $('<div class="list-item"><a class="title" href="'+d.url+'" target="_blank">'+d.title+'</a><div class="url">'+d.url+'</div><div class="content">'+d.content+'</div><div class="publisher">'+(d.publisher || '')+'</div><div class="date">'+d.date+'</div></div>');
 	}
 
 	function genPageItem(n, text, cur){

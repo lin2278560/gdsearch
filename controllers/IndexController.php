@@ -36,7 +36,9 @@ class IndexController extends BaseController{
 	}
 
 	public function file(){
-		$this->show('Index/File');
+		$this->show('Index/File', [
+			'year_list' => range(1999, intval(date('Y'))),
+		]);
 	}
 
 	public function letter(){

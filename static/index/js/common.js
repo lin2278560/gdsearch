@@ -92,7 +92,8 @@ $(function(){
 				$(this).append(genPageItem(1, '第一页'));
 			}
 			while(from <= to){
-				$(this).append(genPageItem(from++, from, cur));
+				$(this).append(genPageItem(from, from, cur));
+				from ++;
 			}
 		}
 	});

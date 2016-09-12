@@ -10,7 +10,7 @@ use Lib\Search\Search;
 class SearchController extends BaseController{
 
 	public function __construct(){
-		$local_url = "http://172.18.9.63/gdgov/?q=&start_applytime=1999-01-01&end_applytime=2016-08-29&page=1&order_by_time=1";
+		$local_url = "http://172.18.9.63/gdgov/?";
 		$file_url = "http://172.18.8.31:8080/zwgk?order_pubdate=-1&prefix_url=006939748&menucat=1001";
 		$bsxx_url = "http://www.gdbs.gov.cn/wsbssearch/GetUserData?providername=search";
 	}
@@ -49,7 +49,7 @@ class SearchController extends BaseController{
 		if ($keywords=="") {
 			$keywords = "'*:*'";
 		}
-		$local_url .= "&p=" . $keywords . "&exclude=" . $keywords_not . "&start_applytime=" . $time_from . "&end_applytime=" . $time_to . "&order_by_time=" . $order;
+		$local_url .= "p=" . $keywords . "&exclude=" . $keywords_not . "&start_applytime=" . $time_from . "&end_applytime=" . $time_to . "&order_by_time=" . $order;
 		$res = Search::get_article($local_url);
         $data = simplexml_load_string($res,'SimpleXMLElement',LIBXML_NOCDATA);
         $data = Search::object_array($data);  //Object -> array

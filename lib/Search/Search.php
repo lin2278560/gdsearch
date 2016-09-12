@@ -4,7 +4,7 @@ namespace Lib\Search;
 
 class Search{
 
-    public function static change_to_json($page_result){
+    public static function change_to_json($page_result){
     	$result_json = "";
     	preg_match_all("/<body>([\s\S]+?)<\/body>/i", $page_result, $lines);
     		$lng = count($lines[1]);
@@ -15,7 +15,7 @@ class Search{
     }
 
 
-    public function static object_array($array) {  
+    public static function object_array($array) {  
         if(is_object($array)) {  
             $array = (array)$array;  
          } if(is_array($array)) {  

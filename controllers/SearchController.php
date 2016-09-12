@@ -10,8 +10,7 @@ use Lib\Search\Search;
 class SearchController extends BaseController{
 
 	public function __construct(){
-		$local_url = "http://172.18.9.63/gdgov/?";
-		$file_url = "http://172.18.8.31:8080/zwgk?order_pubdate=-1&prefix_url=006939748&menucat=1001";
+		$file_url = "http://172.18.8.31/zwgk?order_pubdate=-1&prefix_url=006939748&menucat=1001";
 		$bsxx_url = "http://www.gdbs.gov.cn/wsbssearch/GetUserData?providername=search";
 	}
 
@@ -35,13 +34,14 @@ class SearchController extends BaseController{
 	}
 
 	public function local(){
-		$keywords 		= IO::I("keywords");
-		$keywords_not 	= IO::I("keywords_not");
-		$time_from 		= IO::I("time_from");
-		$time_to 		= IO::I("time_to");
-		$position 		= IO::I("position");
-		$page 			= IO::I("page");
-		$order 			= IO::I("order");
+		$local_url = "http://172.18.9.63/gdgov/?";
+		$keywords 		= IO::I("keywords" , "");
+		$keywords_not 	= IO::I("keywords_not" , "");
+		$time_from 		= IO::I("time_from" , "");
+		$time_to 		= IO::I("time_to" , "");
+		$position 		= IO::I("position" , "all");
+		$page 			= IO::I("page" , "1");
+		$order 			= IO::I("order" , "0");
 		$check = str_replace(" ", "", $keywords);
 		if ($check == ""&&$time_from ==""&&$time_to=="") {
 			IO::E("请输入关键词");
@@ -49,17 +49,31 @@ class SearchController extends BaseController{
 		if ($keywords=="") {
 			$keywords = "'*:*'";
 		}
-		$local_url .= "p=" . $keywords . "&exclude=" . $keywords_not . "&start_applytime=" . $time_from . "&end_applytime=" . $time_to . "&order_by_time=" . $order;
+		switch ($position) {
+			case 'all':
+			case '':
+				$keyword = "q=" . $keywords;
+				break;
+			case 'title':
+				$keyword = "stitle=" . $keywords;
+				break;
+			case 'content':
+				$keyword = "scontent=" . $keywords;
+				break;				
+		}
+		$local_url .= $keyword . "&exclude=" . $keywords_not . "&start_applytime=" . $time_from . "&end_applytime=" . $time_to . "&order_by_time=" . $order;
 		$res = Search::get_article($local_url);
         $data = simplexml_load_string($res,'SimpleXMLElement',LIBXML_NOCDATA);
         $data = Search::object_array($data);  //Object -> array
-        $total = data["information"]["count"];
-        $page_total = ceil(data["information"]["count"]/20);
-        unset($data["information"]);
+        $total = $data["information"]["count"];
+        $page_total = ceil($data["information"]["count"]/20);
+        // unset($data["information"]);
+        // var_dump($data);die();
         $list = [];
-        foreach ($data as $key => $value) {
+        foreach ($data["Document"] as $key => $value) {
         	$value["url"] = $value["link"];
         	unset($value["link"]);
+        	$list[] = $value;
         }
         IO::O(["total"=>$total,"page_total"=>$page_total,"list"=>[$list]]);
 	}
@@ -78,8 +92,8 @@ class SearchController extends BaseController{
 		$res = Search::get_article($file_url);
         $data = simplexml_load_string($res,'SimpleXMLElement',LIBXML_NOCDATA);
         $data = Search::object_array($data);  //Object -> array
-        $total = data["information"]["count"];
-        $page_total = ceil(data["information"]["count"]/20);
+        $total = $data["information"]["count"];
+        $page_total = ceil($data["information"]["count"]/20);
         unset($data["information"]);
         $list = [];
         foreach ($data as $key => $value) {

@@ -6,12 +6,12 @@ use Lib\Core\Log;
 use Lib\Core\DB;
 use Lib\Core\IO;
 use Lib\Search\Search;
+use Lib\Search\Snoopy;
 
 class SearchController extends BaseController{
 
 	public function __construct(){
-		$file_url = "http://172.18.8.31/zwgk?order_pubdate=-1&prefix_url=006939748&menucat=1001";
-		$bsxx_url = "http://www.gdbs.gov.cn/wsbssearch/GetUserData?providername=search";
+
 	}
 
 	/*
@@ -95,24 +95,90 @@ class SearchController extends BaseController{
 	}
 
 	public function file(){
-		$keywords = IO::I("keywords");
-		$time_from = IO::I("time_from");
-		$time_to = IO::I("time_to");
-		$page = IO::I("page");
-		$order = IO::I("order");
+		$file_url = "http://172.18.8.31/zwgk?prefix_url=006939748";
+		$keywords = IO::I("keywords","");
+		$time_from = IO::I("time_from","");
+		$time_to = IO::I("time_to","");
+		$page = IO::I("page","1");
+		$order = IO::I("order","");
+		$filenumType = IO::I("filenumType","");
+		$filenumYear = IO::I("filenumYear","");
+		$filenumNum = IO::I("filenumNum","");
+		$menucat = IO::I("menucat","");
+
+		$filenum = "";
+		if ($filenumType!="") {
+			$filenum = $filenumType;
+		}
+		if ($filenumYear!="") {
+			if ($filenum!="") {
+				$filenum .= " " . $filenumYear;
+			}
+			else{
+				$filenum = $filenumYear;
+			}
+		}
+		if ($filenumNum!="") {
+			if ($filenum!="") {
+				$filenum .= " " . $filenumNum;
+			}
+			else{
+				$filenum = $filenumNum;
+			}
+		}
+		if ($filenum!="") {
+			$filenum = urlencode($filenum);
+		}
+			// $filenum = $filenumType . " " . $filenumYear . " " . $filenumNum;
+
 		$check = str_replace(" ", "", $keywords);
 		if ($check == ""&&$time_from ==""&&$time_to=="") {
 			IO::E("请输入关键词");
 		}
-		$file_url = "&q=" . $keywords . "&start_applytime=" . $time_from . "&endtime=" . $time_to . "&page" . $page;
+
+		if ($time_to!="") {
+			$time_to = date("Y-m-d",$time_to);
+		}
+		if ($time_from!="") {
+			$time_from = date("Y-m-d",$time_from);
+		}
+		$keywords = urlencode($keywords);
+		
+		$file_url = $file_url . "&q=" . $keywords . "&start_applytime=" . $time_from . "&endtime=" . $time_to . "&page" . $page . "&menucat=" .$menucat . "&filenum=" .$filenum . "&order_pubdate=" . $order . "&page=" . $page;
 		$res = Search::get_article($file_url);
         $data = simplexml_load_string($res,'SimpleXMLElement',LIBXML_NOCDATA);
         $data = Search::object_array($data);  //Object -> array
+// var_dump($file_url);die();
+		if ($data["information"]["page_count"]=="0") {
+			IO::O(["total"=>"0","page_total"=>"0","list"=>[]]);
+		}
+
         $total = $data["information"]["count"];
         $page_total = ceil($data["information"]["count"]/20);
-        unset($data["information"]);
         $list = [];
-        foreach ($data as $key => $value) {
+        if ($data["information"]["count"]=="1") {
+        	$data["Document"]["indexnum"] = $data["Document"]["INDEXNUM"];
+        	unset($data["Document"]["INDEXNUM"]);
+        	$data["Document"]["url"] = $data["Document"]["URL"];
+        	unset($data["Document"]["URL"]);
+        	$data["Document"]["title"] = $data["Document"]["TITLE"];
+        	unset($data["Document"]["TITLE"]);
+        	$data["Document"]["pubdate"] = $data["Document"]["PUBDATE"];
+        	unset($data["Document"]["PUBDATE"]);
+        	$data["Document"]["content"] = $data["Document"]["CONTENT"];
+        	unset($data["Document"]["CONTENT"]);
+        	$data["Document"]["publisher"] = $data["Document"]["PUBLISHER"];
+        	unset($data["Document"]["PUBLISHER"]);
+        	$data["Document"]["filenum"] = $data["Document"]["FILENUM"];
+        	unset($data["Document"]["FILENUM"]);
+        	$data["Document"]["menucat"] = $data["Document"]["MENUCAT"];
+        	unset($data["Document"]["MENUCAT"]);
+        	$data["Document"]["date"] = $data["Document"]["issued"];
+			IO::O(["total"=>"1","page_total"=>"1","list"=>["0"=>$data["Document"]]]);
+        }
+
+
+        foreach ($data["Document"] as $key => $value) {
         	$value["indexnum"] = $value["INDEXNUM"];
         	unset($value["INDEXNUM"]);
         	$value["url"] = $value["URL"];
@@ -129,28 +195,53 @@ class SearchController extends BaseController{
         	unset($value["FILENUM"]);
         	$value["menucat"] = $value["MENUCAT"];
         	unset($value["MENUCAT"]);
+        	$value["date"] = $value["issued"];
+
+        	$list[] = $value;
         }
-        IO::O(["total"=>$total,"page_total"=>$page_total,"list"=>[$list]]);
+        IO::O(["total"=>$total,"page_total"=>$page_total,"list"=>$list]);
 	}
 
 	public function bsxx(){
+		$bsxx_url = "http://www.gdbs.gov.cn/wsbssearch/GetUserData?providername=search";
+
 		$searchkey = IO::I("keywords");
-		$pageindex = IO::I("page");
+		$pageindex = IO::I("page","1");
+		$searchtype = IO::I("searchtype","");
+		$division = IO::I("division","");
+		$orgcode = IO::I("orgcode","");
+		$searchkey = urlencode($searchkey);
+		// if ($_REQUEST['searchtype']) {
+		//     $searchtype = $_REQUEST['searchtype'];
+		// }
+		// if ($_REQUEST['division']) {
+		//     $division = $_REQUEST['division'];
+		// }
+		// $orgcode = "";
+		// if ($_REQUEST['orgcode']) {
+		//     $orgcode = $_REQUEST['orgcode'];
+		// }
 
-		if ($_REQUEST['searchtype']) {
-		    $searchtype = $_REQUEST['searchtype'];
+		$bsxx_url = $bsxx_url . "&searchkey=" . $searchkey . "&pageindex=" . $pageindex . "&searchtype=" . $searchtype . "&division=" . $division . "&orgcode=" . $orgcode;
+		$s = new Snoopy;
+		$result = false;
+		for ($i=0; $i<10&&!$result  ; $i++) { 
+		   $s->fetch($bsxx_url);
+		   preg_match_all("/<a([\s\S]+?)\/a>/i", $s->results, $lines);
+		   if ($lines[1]) {
+		      $result = true;
+		   }   
+		   if (!isset($searchkey)) {
+		       break;
+		   }
 		}
-		if ($_REQUEST['division']) {
-		    $division = $_REQUEST['division'];
-		}
-		$orgcode = "";
-		if ($_REQUEST['orgcode']) {
-		    $orgcode = $_REQUEST['orgcode'];
-		}
 
-$bsxx_url = $bsxx_url . "&searchkey=" . $searchkey . "&pageindex=" . $pageindex . "&searchtype=" . $searchtype . "&division=" . $division . "&orgcode=" . $orgcode;
+		IO::O([
+			'result' => $s->results
+		]);
 
-
+		// $res = Search::get_article($bsxx_url);
+		// var_dump($bsxx_url);
+		// IO::O($res);
 	}
-
 }

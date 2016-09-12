@@ -26,7 +26,7 @@ $(function(){
 		var _df = new Date(
 			parseInt($('#input-kw-f-y').val()),
 			parseInt($('#input-kw-f-m').val()) - 1,
-			parseInt($('#input-kw-f-y').val())
+			parseInt($('#input-kw-f-d').val())
 		);
 		console.log(_df);
 		var _dt = new Date(

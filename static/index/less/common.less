@@ -185,6 +185,9 @@ body{
 	min-height:1px;
 	min-width:540px;
 }
+.list-part.left{
+	left:0;
+}
 .sort-line{
 	width:100%;
 	height:40px;
@@ -266,9 +269,10 @@ body{
 	padding:0 0 24px 0;
 	.title{
 		width:100%;
-		height:32px;
+		height:auto;
 		line-height:32px;
 		display:block;
+		overflow:hidden;
 		margin:0;
 		padding:0;
 		text-decoration:none;
@@ -323,6 +327,10 @@ body{
 		font-size:14px;
 		height:24px;
 		line-height:24px;
+	}
+	em{
+		font-style:normal;
+		color:#f94646;
 	}
 }
 .page-list{

@@ -52,30 +52,33 @@ class SearchController extends BaseController{
 		switch ($position) {
 			case 'all':
 			case '':
-				$keyword = "q=" . $keywords;
+				$keyword = "q=" . urlencode($keywords);
 				break;
 			case 'title':
-				$keyword = "stitle=" . $keywords;
+				$keyword = "stitle=" . urlencode($keywords);
 				break;
 			case 'content':
-				$keyword = "scontent=" . $keywords;
+				$keyword = "scontent=" . urlencode($keywords);
 				break;				
 		}
 		$local_url .= $keyword . "&exclude=" . $keywords_not . "&start_applytime=" . $time_from . "&end_applytime=" . $time_to . "&order_by_time=" . $order;
 		$res = Search::get_article($local_url);
         $data = simplexml_load_string($res,'SimpleXMLElement',LIBXML_NOCDATA);
         $data = Search::object_array($data);  //Object -> array
+		if ($data["information"]["page_count"]=="0") {
+			IO::O(["total"=>"0","page_total"=>"0","list"=>[]]);
+		}
+
         $total = $data["information"]["count"];
         $page_total = ceil($data["information"]["count"]/20);
-        // unset($data["information"]);
-        // var_dump($data);die();
         $list = [];
+
         foreach ($data["Document"] as $key => $value) {
         	$value["url"] = $value["link"];
         	unset($value["link"]);
         	$list[] = $value;
         }
-        IO::O(["total"=>$total,"page_total"=>$page_total,"list"=>[$list]]);
+        IO::O(["total"=>$total,"page_total"=>$page_total,"list"=>$list]);
 	}
 
 	public function file(){

@@ -101,7 +101,7 @@ $(function(){
 				list : d.list
 			});
 		}, function(c, m){
-			$('#list-body').html(m)
+			alert(m);
 		});
 	})(G.request);
 

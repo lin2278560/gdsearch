@@ -1,13 +1,6 @@
 $(function(){
 
 	window.originType = window.type = _RG.action;
-	switch(window.type){
-		case 'localAdvance':
-			window.type = 'local';
-			break;
-		default:
-			break;
-	}
 	window.options = {};
 	window.advance = false;
 	var $typeDrag = $('#type-drag').on('click', '.item', function(){
@@ -19,6 +12,7 @@ $(function(){
 		switch(type){
 			case 'local':
 			case 'file':
+			case 'bsxx':
 				$advanceSearchButton.show();
 				break;
 			default:
@@ -63,6 +57,9 @@ $(function(){
 				var k = $(this).attr('key');
 				$(that).find('.selected').html($(this).html());
 				options[varName] = that.value = k;
+				if(option.callback){
+					option.callback.call(that, k);
+				}
 			});
 		},
 		bindOptionPart : function(option){
@@ -87,6 +84,9 @@ $(function(){
 				var k = $(this).attr('key');
 				$(this).addClass('selected').siblings().removeClass('selected');
 				options[varName] = that.value = k;
+				if(option.callback){
+					option.callback.call(that, k);
+				}
 			});
 		},
 		refreshList : function(option){

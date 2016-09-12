@@ -22,6 +22,7 @@ class IndexController extends BaseController{
 				'main'   => '主页面',
 				'local'  => '本网搜索',
 				'file'   => '文件搜索',
+				'bsxx'   => '办事信息',
 				'letter' => '对省长说'
 			]
 		];
@@ -39,6 +40,10 @@ class IndexController extends BaseController{
 		$this->show('Index/File', [
 			'year_list' => range(1999, intval(date('Y'))),
 		]);
+	}
+
+	public function bsxx(){
+		$this->show('Index/Bsxx');
 	}
 
 	public function letter(){

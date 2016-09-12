@@ -70,6 +70,9 @@ class SearchController extends BaseController{
 		if ($time_from!="") {
 			$time_from = date("Y-m-d",$time_from);
 		}
+		else{
+			$time_from = "1990-01-01";
+		}
 		
 		$local_url .= $keyword . "&exclude=" . $keywords_not . "&start_applytime=" . $time_from . "&end_applytime=" . $time_to . "&order_by_time=" . $order . "&page=" . $page;
 		// var_dump($local_url);die();
@@ -147,6 +150,9 @@ class SearchController extends BaseController{
 		}
 		if ($time_from!="") {
 			$time_from = date("Y-m-d",$time_from);
+		}
+		else{
+			$time_from = "1990-01-01";
 		}
 		$keywords = urlencode($keywords);
 		

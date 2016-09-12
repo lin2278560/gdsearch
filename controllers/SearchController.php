@@ -55,10 +55,10 @@ class SearchController extends BaseController{
 				$keyword = "q=" . urlencode($keywords);
 				break;
 			case 'title':
-				$keyword = "stitle=" . urlencode($keywords);
+				$keyword = "stitle=" . urlencode($keywords) . "&q='*:*'";
 				break;
 			case 'content':
-				$keyword = "scontent=" . urlencode($keywords);
+				$keyword = "scontent=" . urlencode($keywords) . "&q='*:*'";
 				break;				
 		}
 		if ($time_to!="") {
@@ -69,6 +69,7 @@ class SearchController extends BaseController{
 		}
 		
 		$local_url .= $keyword . "&exclude=" . $keywords_not . "&start_applytime=" . $time_from . "&end_applytime=" . $time_to . "&order_by_time=" . $order . "&page=" . $page;
+		// var_dump($local_url);die();
 		$res = Search::get_article($local_url);
         $data = simplexml_load_string($res,'SimpleXMLElement',LIBXML_NOCDATA);
         $data = Search::object_array($data);  //Object -> array
@@ -79,6 +80,11 @@ class SearchController extends BaseController{
         $total = $data["information"]["count"];
         $page_total = ceil($data["information"]["count"]/20);
         $list = [];
+        if ($data["information"]["count"]=="1") {
+        	$data["Document"]["url"] = $data["Document"]["link"];
+        	unset($data["Document"]["link"]);
+			IO::O(["total"=>"1","page_total"=>"1","list"=>["0"=>$data["Document"]]]);
+        }
 
         foreach ($data["Document"] as $key => $value) {
         	$value["url"] = $value["link"];

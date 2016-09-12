@@ -38,6 +38,10 @@ $(function(){
 		}));
 	});
 
+	if("advance" in G.request){
+		$('#advance-search-button').mousedown();
+	}
+
 	(function(o){
 		var m = {};
 		var i;

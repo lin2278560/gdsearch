@@ -48,4 +48,9 @@ class IndexController extends BaseController{
 		header('Location:http://app.gd.gov.cn/searchplatform/zwgksearch.php?searchword='.urlencode($kw).'&page=1');
 	}
 
+	public function gb(){
+		$kw = IO::I('keywords');
+		header('Location:http://www.gd.gov.cn/govpub/zfgb/');
+	}
+
 }

@@ -25,14 +25,16 @@ $(function(){
 		var kwExclude = $iptExclude.val();
 		var _df = new Date(
 			parseInt($('#input-kw-f-y').val()),
-			parseInt($('#input-kw-f-y').val()) - 1,
+			parseInt($('#input-kw-f-m').val()) - 1,
 			parseInt($('#input-kw-f-y').val())
 		);
+		console.log(_df);
 		var _dt = new Date(
 			parseInt($('#input-kw-t-y').val()),
-			parseInt($('#input-kw-t-y').val()) - 1,
-			parseInt($('#input-kw-t-y').val())
+			parseInt($('#input-kw-t-m').val()) - 1,
+			parseInt($('#input-kw-t-d').val())
 		);
+		console.log(_dt);
 		var _tf = Math.floor(_df.getTime() / 1000);
 		var _tt = Math.floor(_dt.getTime() / 1000);
 		if(!kwInclude.length){

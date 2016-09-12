@@ -1,0 +1,220 @@
+@import "../../core/less/ui.var.less";
+
+.letter-header{
+	width:100%;
+	position:relative;
+	height:214px;
+	background-color:#f8f8f8;
+	border-bottom:1px @grey300 solid;
+	.center{
+		width:1000px;
+		height:214px;
+		position:absolute;
+		top:0;
+		left:50%;
+		margin-left:-500px;
+	}
+}
+.gd-logo{
+	width:471px;
+	height:127px;
+	position:absolute;
+	top:16px;
+	left:0;
+	background-image:url(../img/gdlogo.jpg);
+	background-position:center;
+	background-repeat:no-repeat;
+}
+.gd-navi-bar{
+	width:100%;
+	height:51px;
+	position:absolute;
+	bottom:16px;
+	left:0;
+}
+.gd-home{
+	display:block;
+	width:67px;
+	height:51px;
+	float:left;
+	background-image:url(../img/gdhome.jpg);
+	background-position:center;
+	background-repeat:no-repeat;
+}
+.gd-navi{
+	display:block;
+	width:155px;
+	height:51px;
+	line-height:51px;
+	font-size:20px;
+	color:@grey700;
+	float:left;
+	text-decoration:none;
+	text-align:center;
+}
+.gd-navi:hover{
+	color:#fff;
+	background-color:#2a6aa7;
+}
+.gd-navi.cur{
+	color:#fff;
+	background-color:#2a6aa7;
+}
+.letter-frame{
+	width:1000px;
+	clear:both;
+	margin:32px auto;
+	border:1px @grey300 solid;
+	background-color:#fff;
+	height:auto;
+	min-height:100px;
+	padding:16px 0;
+}
+.roger-frame{
+	width:200px;
+	height:64px;
+	padding:200px 0 0 0;
+	background-image:url(../img/roger.jpg);
+	background-position:center;
+	background-repeat:no-repeat;
+	margin:32px auto;
+	display:none;
+}
+.talkto{
+	width:936px;
+	height:121px;
+	margin:16px auto;
+	background-image:url(../img/talkto.gif);
+	background-position:center;
+}
+.row{
+    display:block;
+    clear:both;
+    width:100%;
+    position:relative;
+    height:auto;
+    overflow:hidden;
+    min-height:1px;
+}
+.row.x1{
+	height:56px;
+}
+.letter-textbox{
+	width:434px;
+	height:32px;
+	border:1px @grey300 solid;
+	float:left;
+	margin:16px 32px;
+	position:relative;
+	.label{
+		width:160px;
+		height:32px;
+		position:absolute;
+		left:0;
+		top:0;
+		line-height:32px;
+		font-size:16px;
+		color:@grey900;
+		background-color:@grey100;
+		border-right:1px @grey300 solid;
+		text-align:center;
+	}
+	input{
+		position:absolute;
+		border:none;
+		background-color:#fff;
+		color:@grey700;
+		font-size:14px;
+		height:32px;
+		line-height:32px;
+		padding:0 8px;
+		margin:0;
+		width:434px - 161 - 16;
+		left:161px;
+		top:0;
+		outline:none;
+	}
+}
+.letter-textbox.long{
+	width:934px;
+	input{
+		width:934px - 161 - 16;
+	}
+}
+.letter-textbox.short{
+	width:320px;
+	input{
+		width:320px - 161 - 16;
+	}
+}
+.letter-textbox.nm{
+	margin:0 32px;
+}
+.letter-label{
+	height:48px;
+	line-height:64px;
+	color:@grey700;
+	font-size:16px;
+	margin:0 0 0 32px;
+}
+.letter-content{
+	outline:none;
+	border:1px @grey300 solid;
+	border-top:none;
+	margin:0 32px 12px 32px;
+	height:240px;
+	padding:16px;
+	width:902px;
+	color:@grey700;
+	font-size:16px;
+}
+.vericode-frame{
+	height:32px;
+	border:1px @grey300 solid;
+	width:96px;
+	background-color:@grey200;
+	margin:16px 0;
+	float:left;
+	cursor:pointer;
+	position:relative;
+	img{
+		display:block;
+		border:none;
+		position:absolute;
+		top:0;
+		left:0;
+		width:96px;
+		height:32px;
+		outline:none;
+		margin:0;
+	}
+}
+.letter-submit-button{
+	width:96px;
+	height:32px;
+	line-height:32px;
+	text-align:center;
+	background-color:#2a6aa7;
+	color:#fff;
+	float:right;
+	margin:16px 32px;
+	cursor:pointer;
+	font-size:16px;
+}
+.letter-submit-button.loading{
+	background-color:@grey400;
+	font-size:14px;
+}
+.letter-back-button{
+	display:block;
+	text-decoration:none;
+	width:96px;
+	height:32px;
+	line-height:32px;
+	text-align:center;
+	background-color:#2a6aa7;
+	color:#fff;
+	margin:16px auto;
+	cursor:pointer;
+	font-size:16px;
+}

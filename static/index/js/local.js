@@ -76,6 +76,10 @@ $(function(){
 				m[i] = o[i];
 			}
 		}
+		if(!("keywords" in m) || m.keywords.length <= 1){
+			$('#list-body').empty();
+			return;
+		}
 		G.call('search.local', m, function(c, d){
 			$('#page-list').refreshPage({
 				cur : G.request['page'] || 1,
@@ -85,7 +89,7 @@ $(function(){
 				list : d.list
 			});
 		}, function(c, m){
-			$('#page-list').html(m)
+			$('#list-body').html(m)
 		});
 	})(G.request);
 });

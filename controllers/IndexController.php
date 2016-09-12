@@ -19,8 +19,10 @@ class IndexController extends BaseController{
 		return [
 			'desc'    => 'IndexController模块',
 			'actions' => [
-				'main'  => '主页面',
-				'local' => '本网搜索'
+				'main'   => '主页面',
+				'local'  => '本网搜索',
+				'file'   => '文件搜索',
+				'letter' => '对省长说'
 			]
 		];
 	}
@@ -31,6 +33,14 @@ class IndexController extends BaseController{
 
 	public function local(){
 		$this->show('Index/Local');
+	}
+
+	public function file(){
+		$this->show('Index/File');
+	}
+
+	public function letter(){
+		$this->show('Index/Letter');
 	}
 
 }

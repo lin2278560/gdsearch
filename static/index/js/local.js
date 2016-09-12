@@ -96,7 +96,7 @@ $(function(){
 			}
 			delete m['timeRange'];
 		}
-		if(!("keywords" in m) || m.keywords.length <= 1){
+		if(!("keywords" in m) || m.keywords.length < 1){
 			$('#list-body').empty();
 			return;
 		}

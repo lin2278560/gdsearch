@@ -78,8 +78,8 @@ $(function(){
 			}
 		},
 		refreshPage : function(option){
-			var cur = option.cur;
-			var max = option.max;
+			var cur = parseInt(option.cur);
+			var max = parseInt(option.max);
 			var from = cur - 5;
 			if(from <= 0){
 				from = 1;

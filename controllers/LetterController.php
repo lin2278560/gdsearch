@@ -48,7 +48,7 @@ class LetterController extends BaseController{
 		\Lib\Core\Vericode::flush_code();
 		# TODO
 		$data["time"] = time();
-		var_dump($data);die();
+		unset($data["vericode"]);
 		DB::insert($data,"letter");
 		IO::O();
 	}

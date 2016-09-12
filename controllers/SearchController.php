@@ -68,7 +68,7 @@ class SearchController extends BaseController{
 			$time_from = date("Y-m-d",$time_from);
 		}
 		
-		$local_url .= $keyword . "&exclude=" . $keywords_not . "&start_applytime=" . $time_from . "&end_applytime=" . $time_to . "&order_by_time=" . $order;
+		$local_url .= $keyword . "&exclude=" . $keywords_not . "&start_applytime=" . $time_from . "&end_applytime=" . $time_to . "&order_by_time=" . $order . "&page=" . $page;
 		$res = Search::get_article($local_url);
         $data = simplexml_load_string($res,'SimpleXMLElement',LIBXML_NOCDATA);
         $data = Search::object_array($data);  //Object -> array

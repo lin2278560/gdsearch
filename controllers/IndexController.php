@@ -19,13 +19,18 @@ class IndexController extends BaseController{
 		return [
 			'desc'    => 'IndexController模块',
 			'actions' => [
-				'main' => '主页面'
+				'main'  => '主页面',
+				'local' => '本网搜索'
 			]
 		];
 	}
 
 	public function main(){
 		$this->show('Index/Main');
+	}
+
+	public function local(){
+		$this->show('Index/Local');
 	}
 
 }

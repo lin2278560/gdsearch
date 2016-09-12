@@ -13,23 +13,21 @@ class Common extends TplConfig{
                 
             ],
             'less' => [
-                'core/less/ui'
+                'index/less/common'
             ],
             'js'   => [
-                'core/js/less',
                 'core/js/moment',
                 'core/js/jquery',
-                'core/js/ui',
                 'core/js/config',
                 'core/js/global',
-                'core/js/common'
+                'core/js/common',
+                'index/js/common'
             ],
             'navi'       => [],
             'header_tpl' => $this->dirTpl('Core/Header'),
             'static_tpl' => $this->dirTpl('Core/Static'),
             'tpl_basic'  => RUNTIME_DIR_TPL,
             'tpl'        => [
-                'Core/UI'
             ]
         ];
     }

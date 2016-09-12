@@ -4,18 +4,17 @@ namespace Tpl\Index;
 use Tpl\Config as TplConfig;
 use Lib\Core\TPL as TPL;
 
-class Main extends TplConfig{
+class LocalAdvance extends TplConfig{
 
 	public function getConfig(){
 
 		$config = TPL::extendConfig('Core/Common', [
 			'js'   => [
-				'index/js/main'
+				'index/js/localadvance'
 			],
 			'less' => [
-				'index/less/main'
-			],
-            'header_tpl' => $this->dirTpl('Core/EmptyHeader'),
+				'index/less/localadvance'
+			]
 		]);
 
 		return $config;

@@ -1,1 +1,117 @@
 @import "../../core/less/ui.var.less";
+
+@allWidth:635px;
+
+.search-frame{
+	width:@allWidth;
+	height:170px;
+	position:absolute;
+	top:33%;
+	left:50%;
+	margin-left:-318px;
+	margin-top:-85px;
+}
+.logo{
+	width:@allWidth;
+	height:65px;
+	top:0;
+	left:0;
+	position:absolute;
+	background-image:url(../img/logo.jpg);
+	background-position:center;
+	background-repeat:no-repeat;
+}
+.tab-bar{
+	position:absolute;
+	top:65px + 12px;
+	left:0;
+	width:100%;
+	height:24px;
+}
+.tab{
+	width:@allWidth / 5;
+	height:24px;
+	line-height:24px;
+	text-align:center;
+	font-size:15px;
+	color:@grey700;
+	float:left;
+	cursor:pointer;
+}
+.tab-underline{
+	width:@allWidth;
+	height:2px;
+	background-color:@grey300;
+	position:absolute;
+	top:65px + 40px;
+	left:0;
+}
+.underline{
+	position:absolute;
+	top:-1px;
+	height:3px;
+	background-color:#b5300e;
+	width:127px;
+}
+.input-line{
+	width:@allWidth;
+	height:40px;
+	position:absolute;
+	top:65px + 40px + 2 + 20;
+	left:0;
+}
+.input-keywords{
+	position:absolute;
+	top:0;
+	left:0;
+	box-sizing:content-box;
+	border:1px @grey300 solid;
+	padding:7px 12px;
+	height:24px;
+	line-height:24px;
+	margin:0;
+	font-size:15px;
+	color:@grey500;
+	width:@allWidth - 2 - 24px - 110 - 12 - 70 - 12;
+	outline:none;
+	.transition-on;
+}
+.search-button{
+	position:absolute;
+	top:0;
+	right:110px + 12px;
+	width:70px;
+	height:40px;
+	background-image:url(../img/search_index.jpg);
+	background-position:center;
+	background-repeat:no-repeat;
+	cursor:pointer;
+	.transition-on;
+}
+
+.advance-search-button{
+	position:absolute;
+	top:0;
+	right:0;
+	width:110px;
+	height:40px;
+	background-image:url(../img/search_advance_index.jpg);
+	background-position:center;
+	background-repeat:no-repeat;
+	cursor:pointer;
+	display:block;
+	outline:none;
+	text-decoration:none;
+}
+
+.input-line.hide-advance{
+	.input-keywords{
+		width:@allWidth - 2 - 24px - 70 - 12;
+	}
+	.search-button{
+		right:0;
+	}
+	.advance-search-button{
+		display:none;
+	}
+}

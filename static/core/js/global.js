@@ -189,6 +189,25 @@ var G = (function(window){
             _m : url
         });
     };
+
+    G.request = (function(url){
+        var map = {}, j,
+            i = url.indexOf('?'),
+            m = url.indexOf('#');
+        if(i < 0){
+            return map;
+        }
+        j = m > 0 ? (url.slice(i + 1, m)) : j = url.slice(i + 1);
+        m = j.split('&');
+        for(i = 0; i < m.length; i ++){
+            j = m[i].indexOf('=');
+            if(j <= 0){
+                continue;
+            }
+            map[m[i].slice(0, j)] = decodeURIComponent(m[i].slice(j + 1));
+        }
+        return map;
+    })(document.location.href);
     
     return G;
     

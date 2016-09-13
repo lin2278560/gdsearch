@@ -16,11 +16,11 @@ $(function(){
 
 		key = $(this).attr('key');
 
-		if(key == 'local'){
-			$inputLine.removeClass('hide-advance');
-		}else{
-			$inputLine.addClass('hide-advance');
-		}
+		// if(key == 'local'){
+		// 	$inputLine.removeClass('hide-advance');
+		// }else{
+		// 	$inputLine.addClass('hide-advance');
+		// }
 
 	});
 

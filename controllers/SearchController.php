@@ -111,6 +111,9 @@ class SearchController extends BaseController{
 		$filenumYear = IO::I("filenumYear","");
 		$filenumNum = IO::I("filenumNum","");
 		$menucat = IO::I("menucat","1001");
+		if ($menucat=="") {
+			$menucat="1001";
+		}
 
 		$filenum = "";
 		if ($filenumType!="") {
@@ -160,7 +163,7 @@ class SearchController extends BaseController{
 		$res = Search::get_article($file_url);
         $data = simplexml_load_string($res,'SimpleXMLElement',LIBXML_NOCDATA);
         $data = Search::object_array($data);  //Object -> array
-// var_dump($file_url);die();
+
 		if ($data["information"]["page_count"]=="0") {
 			IO::O(["total"=>"0","page_total"=>"0","list"=>[]]);
 		}

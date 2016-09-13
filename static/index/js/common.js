@@ -130,9 +130,13 @@ $(function(){
 		if(!kw.length){
 			return;
 		}
-		G.go(G.url('index', type, {
+		var data = {
 			keywords : kw
-		}));
+		};
+		if(window.advance){
+			data.advance = 'true';
+		}
+		G.go(G.url('index', type, data));
 	}
 
 	function makeURLWithin(varName, value){

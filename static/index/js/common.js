@@ -20,6 +20,8 @@ $(function(){
 				break;
 		}
 
+		doSearch();
+
 	});
 	$typeDrag.find('.item').each(function(){
 		if($(this).attr('key') == window.type){

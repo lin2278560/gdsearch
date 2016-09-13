@@ -106,7 +106,7 @@ class SearchController extends BaseController{
 		$time_from = IO::I("time_from","");
 		$time_to = IO::I("time_to","");
 		$page = IO::I("page","1");
-		$order = IO::I("order","");
+		$order = IO::I("order","1");
 		$filenumType = IO::I("filenumType","");
 		$filenumYear = IO::I("filenumYear","");
 		$filenumNum = IO::I("filenumNum","");

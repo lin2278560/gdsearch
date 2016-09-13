@@ -20,8 +20,8 @@ $(function(){
 		varname : 'themecat'
 	});
 
-	$('#cubcat').bindOptionDrag({
-		varname : 'cubcat'
+	$('#subcat').bindOptionDrag({
+		varname : 'subcat'
 	});
 
 	var time_from = parseInt(G.request['time_from']) || (moment().unix() - 86400 * 365);
@@ -85,7 +85,7 @@ $(function(){
 			filenumNum  : $('#filenum-num').val(),
 			menucat     : options.menucat || '',
 			themecat    : options.themecat || '',
-			cubcat      : options.cubcat || '',
+			subcat      : options.subcat || '',
 			advance     : 'true'
 		}));
 	});

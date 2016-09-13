@@ -47,7 +47,7 @@ $(function(){
 			keywords_not : kwExclude,
 			time_from : _tf,
 			time_to : _tt,
-			position : window.options.order || '',
+			order : window.options.order || '',
 			position : window.options.position || 'all',
 			advance : 'true'
 		}));

@@ -48,7 +48,7 @@ $(function(){
 		return false;
 	});
 	if("advance" in G.request){
-		$('#advance-search-button').mousedown();
+		$('#advance-search-button-show').mousedown();
 	}
 
 	$('#advance-search-go').click(function(){

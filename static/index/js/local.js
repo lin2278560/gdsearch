@@ -72,7 +72,7 @@ $(function(){
 	var $iptExclude = $('#input-kw-exclude').val(G.request['keywords_not' || '']);
 
 	if("advance" in G.request){
-		$('#advance-search-button').mousedown();
+		$('#advance-search-button-show').mousedown();
 	}
 	(function(o){
 		var m = {};

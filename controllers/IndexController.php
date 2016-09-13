@@ -33,21 +33,28 @@ class IndexController extends BaseController{
 	}
 
 	public function local(){
-		$this->show('Index/Local');
+		$this->show('Index/Local', [
+			'title' => '本网搜索 - 广东省人民政府门户网站'
+		]);
 	}
 
 	public function file(){
 		$this->show('Index/File', [
 			'year_list' => range(1999, intval(date('Y'))),
+			'title' => '省政府文件搜索 - 广东省人民政府门户网站'
 		]);
 	}
 
 	public function bsxx(){
-		$this->show('Index/Bsxx');
+		$this->show('Index/Bsxx', [
+			'title' => '办事信息 - 广东省人民政府门户网站'
+		]);
 	}
 
 	public function letter(){
-		$this->show('Index/Letter');
+		$this->show('Index/Letter', [
+			'title' => '我有话对省长说 - 广东省人民政府门户网站'
+		]);
 	}
 
 	public function qs(){

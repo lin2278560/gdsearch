@@ -41,7 +41,7 @@ $(function(){
 		}
 		G.go(G.url('index', key, {
 			keywords : kw
-		}));
+		}), true);
 	}
 
 

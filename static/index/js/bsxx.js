@@ -15,22 +15,28 @@ $(function(){
 	if(G.request['searchtype'] && G.request['searchtype'] != 'SERVICEITEM'){
 		$('#onlineservice').hide();
 	}
+	var $iptKw = $('#input-kw').val(G.request['keywords'] || '');
 
-	$('#advance-search-button').mousedown(function(){
-		window.advance = !window.advance;
-		if(window.advance){
-			$('.advance-search').slideDown();
-			$('.normal-search').slideUp();
-		}else{
-			$('.advance-search').slideUp();
-			$('.normal-search').slideDown();
-		}
+	$('#advance-search-button-show').mousedown(function(){
+		window.advance = true;
+		$('.advance-search').slideDown();
+		$('.normal-search').slideUp();
+		return false;
+	});
+	$('#advance-search-button-fold').mousedown(function(){
+		window.advance = false;
+		$('.advance-search').slideUp();
+		$('.normal-search').slideDown();
 		return false;
 	});
 
 	$('#advance-search-go').click(function(){
+		var kw = $iptKw.val();
+		if(!kw.length){
+			return;
+		}
 		G.go(G.url('index', 'bsxx', {
-			keywords : G.request['keywords'] || '',
+			keywords : kw,
 			searchtype : options['searchtype'] || '',
 			division : options['division'] || '',
 			onlineservice : options['onlineservice'] || '',

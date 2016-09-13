@@ -6,18 +6,22 @@ $(function(){
 	$('#sort-line').bindOptionPart({
 		varname : 'order'
 	});
+	$('#sort-select').bindOptionPart({
+		varname : 'order'
+	});
 	$('#position-select').bindOptionPart({
 		varname : 'position'
 	});
-	$('#advance-search-button').mousedown(function(){
-		window.advance = !window.advance;
-		if(window.advance){
-			$('.advance-search').slideDown();
-			$('.normal-search').slideUp();
-		}else{
-			$('.advance-search').slideUp();
-			$('.normal-search').slideDown();
-		}
+	$('#advance-search-button-show').mousedown(function(){
+		window.advance = true;
+		$('.advance-search').slideDown();
+		$('.normal-search').slideUp();
+		return false;
+	});
+	$('#advance-search-button-fold').mousedown(function(){
+		window.advance = false;
+		$('.advance-search').slideUp();
+		$('.normal-search').slideDown();
 		return false;
 	});
 	$('#advance-search-go').click(function(){

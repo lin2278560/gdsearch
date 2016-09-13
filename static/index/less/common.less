@@ -19,10 +19,11 @@ body{
 	position:absolute;
 	top:0;
 	left:0;
-	height:74px;
+	height:42px;
 	width:170px;
-	line-height:74px;
-	font-size:20px;
+	line-height:21px;
+	padding:16px 0;
+	font-size:18px;
 	font-weight:bold;
 	color:@red;
 	text-align:center;
@@ -42,6 +43,7 @@ body{
 	z-index:100;
 	cursor:pointer;
 	overflow:hidden;
+	display:none;
 
 	.selected{
 		position:absolute;
@@ -90,7 +92,8 @@ body{
 .list-input-keywords{
 	position:absolute;
 	top:(74px - 29) / 2;
-	left:170px + 150 + 1;
+	// left:170px + 150 + 1;
+	left:170px + 0 + 1;
 	box-sizing:content-box;
 	border:1px @grey300 solid;
 	padding:4px 12px;
@@ -99,14 +102,14 @@ body{
 	margin:0;
 	font-size:15px;
 	color:@grey500;
-	width:400px - 24;
+	width:400px - 24 + 150 + 140;
 	outline:none;
 	.transition-on;
 }
 .list-search-button{
 	position:absolute;
 	top:(74px - 29) / 2;
-	left:170px + 150 + 1 + 400 + 2 + 18;
+	left:170px + 150 + 1 + 400 + 2 + 18 + 140;
 	width:70px;
 	height:29px;
 	background-image:url(../img/search.jpg);
@@ -201,6 +204,7 @@ body{
 	height:40px;
 	clear:both;
 	border-bottom:@grey300 solid 1px;
+	position:relative;
 	.hd{
 		float:left;
 		margin:0 0 0 32px;
@@ -224,6 +228,12 @@ body{
 	}
 	.item.selected{
 		color:@red;
+	}
+}
+.sort-line.no-left{
+	margin-left:32px;
+	.hd{
+		margin-left:0;
 	}
 }
 .position-select{
@@ -276,7 +286,7 @@ body{
 	height:26px;
 }
 .list-item{
-	width:530px;
+	width:530px + 140;
 	height:auto;
 	min-height:1px;
 	overflow:hidden;
@@ -551,4 +561,25 @@ body{
 	background-image:url(../img/empty.jpg);
 	background-position:7px 7px;
 	background-repeat:no-repeat;
+}
+.advance-show,
+.advance-fold{
+	position:absolute;
+	left:170px + 1 + 400 + 2 - 100 - 8 + 140;
+	width:76px;
+	overflow:hidden;
+	font-size:14px;
+	color:@grey700;
+	height:40px;
+	line-height:40px;
+	text-align:right;
+	padding:0 24px 0 0;
+	background-image:url(../img/advance-show.jpg);
+	background-position:right center;
+	background-repeat:no-repeat;
+	cursor:pointer;
+}
+.advance-fold{
+	left:170px + 1 + 400 + 2 - 100 - 8 + 140;
+	background-image:url(../img/advance-fold.jpg);
 }

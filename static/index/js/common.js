@@ -118,7 +118,7 @@ $(function(){
 				from ++;
 			}
 			if(to != max){
-				$(this).append(genPageItem(to, '最后一页'));
+				$(this).append(genPageItem(max, '最后一页'));
 			}
 		}
 	});

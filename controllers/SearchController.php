@@ -110,7 +110,7 @@ class SearchController extends BaseController{
 		$filenumType = IO::I("filenumType","");
 		$filenumYear = IO::I("filenumYear","");
 		$filenumNum = IO::I("filenumNum","");
-		$menucat = IO::I("menucat","");
+		$menucat = IO::I("menucat","1001");
 
 		$filenum = "";
 		if ($filenumType!="") {
@@ -223,17 +223,6 @@ class SearchController extends BaseController{
 		$division = IO::I("division","");
 		$orgcode = IO::I("orgcode","");
 		$searchkey = urlencode($searchkey);
-		// if ($_REQUEST['searchtype']) {
-		//     $searchtype = $_REQUEST['searchtype'];
-		// }
-		// if ($_REQUEST['division']) {
-		//     $division = $_REQUEST['division'];
-		// }
-		// $orgcode = "";
-		// if ($_REQUEST['orgcode']) {
-		//     $orgcode = $_REQUEST['orgcode'];
-		// }
-
 		$bsxx_url = $bsxx_url . "&searchkey=" . $searchkey . "&pageindex=" . $pageindex . "&searchtype=" . $searchtype . "&division=" . $division . "&orgcode=" . $orgcode;
 		$s = new Snoopy;
 		$result = false;

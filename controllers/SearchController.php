@@ -55,10 +55,10 @@ class SearchController extends BaseController{
 				$keyword = "q=" . urlencode($keywords);
 				break;
 			case 'title':
-				$keyword = "stitle=" . urlencode($keywords) . "&q='*:*'";
+				$keyword = "stitle=" . urlencode($keywords) . "&q=" . urlencode($keywords);
 				break;
 			case 'content':
-				$keyword = "scontent=" . urlencode($keywords) . "&q='*:*'";
+				$keyword = "scontent=" . urlencode($keywords) . "&q=" . urlencode($keywords);
 				break;				
 		}
 		if ($time_to!="") {

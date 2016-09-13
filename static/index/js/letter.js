@@ -18,6 +18,16 @@ $(function(){
 		$(this).append(img);
 	});
 
+	$('#content').focus(function(){
+		if($(this).val() == '请在此输入您所要留言的内容'){
+			$(this).val('');
+		}
+	}).blur(function(){
+		if($(this).val() == ''){
+			$(this).val('请在此输入您所要留言的内容');
+		}
+	});
+
 	$('#letter-submit-button').click(function(){
 		var data = {};
 		var i;

@@ -16,6 +16,14 @@ $(function(){
 		varname : 'menucat'
 	});
 
+	$('#themecat').bindOptionDrag({
+		varname : 'themecat'
+	});
+
+	$('#cubcat').bindOptionDrag({
+		varname : 'cubcat'
+	});
+
 	var time_from = parseInt(G.request['time_from']) || (moment().unix() - 86400 * 365);
 	var time_to   = parseInt(G.request['time_to']) || (moment().unix());
 
@@ -69,14 +77,16 @@ $(function(){
 			return;
 		}
 		G.go(G.url('index', 'file', {
-			keywords : kw,
-			time_from : _tf,
-			time_to : _tt,
+			keywords    : kw,
+			time_from   : _tf,
+			time_to     : _tt,
 			filenumType : (options.filenumType || ''),
 			filenumYear : (options.filenumYear || ''),
-			filenumNum : $('#filenum-num').val(),
-			menucat : options.menucat || '',
-			advance : 'true'
+			filenumNum  : $('#filenum-num').val(),
+			menucat     : options.menucat || '',
+			themecat    : options.themecat || '',
+			cubcat      : options.cubcat || '',
+			advance     : 'true'
 		}));
 	});
 

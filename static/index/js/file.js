@@ -4,6 +4,10 @@ $(function(){
 		varname : 'order'
 	});
 
+	$('#sort-select').bindOptionPart({
+		varname : 'order'
+	});
+
 	$('#filenum-type').bindOptionDrag({
 		varname : 'filenumType'
 	});
@@ -78,6 +82,7 @@ $(function(){
 		}
 		G.go(G.url('index', 'file', {
 			keywords    : kw,
+			order       : window.options.order || '1',
 			time_from   : _tf,
 			time_to     : _tt,
 			filenumType : (options.filenumType || ''),

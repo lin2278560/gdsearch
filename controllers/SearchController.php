@@ -75,8 +75,9 @@ class SearchController extends BaseController{
 		}
 		
 		$local_url .= $keyword . "&exclude=" . $keywords_not . "&start_applytime=" . $time_from . "&end_applytime=" . $time_to . "&order_by_time=" . $order . "&page=" . $page;
-		// var_dump($local_url);die();
+		
 		$res = Search::get_article($local_url);
+
         $data = simplexml_load_string($res,'SimpleXMLElement',LIBXML_NOCDATA);
         $data = Search::object_array($data);  //Object -> array
 		if ($data["information"]["page_count"]=="0") {
@@ -111,6 +112,8 @@ class SearchController extends BaseController{
 		$filenumYear = IO::I("filenumYear","");
 		$filenumNum = IO::I("filenumNum","");
 		$menucat = IO::I("menucat","1001");
+		$themecat = IO::I("themecat","");
+		$subcat = IO::I("subcat","");
 		if ($menucat=="") {
 			$menucat="1001";
 		}
@@ -159,7 +162,8 @@ class SearchController extends BaseController{
 		}
 		$keywords = urlencode($keywords);
 		
-		$file_url = $file_url . "&q=" . $keywords . "&start_applytime=" . $time_from . "&endtime=" . $time_to . "&page" . $page . "&menucat=" .$menucat . "&filenum=" .$filenum . "&order_pubdate=" . $order . "&page=" . $page;
+		$file_url = $file_url . "&q=" . $keywords . "&start_applytime=" . $time_from . "&endtime=" . $time_to . "&page" . $page . "&menucat=" .$menucat . "&filenum=" .$filenum . "&order_pubdate=" . $order . "&page=" . $page . "&themecat=" . $themecat . "&subcat=" . $subcat;
+
 		$res = Search::get_article($file_url);
         $data = simplexml_load_string($res,'SimpleXMLElement',LIBXML_NOCDATA);
         $data = Search::object_array($data);  //Object -> array

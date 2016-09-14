@@ -27,6 +27,9 @@ $(function(){
 	$('#subcat').bindOptionDrag({
 		varname : 'subcat'
 	});
+	$('#position-select').bindOptionPart({
+		varname : 'position'
+	});
 
 	var time_from = parseInt(G.request['time_from']) || (moment().unix() - 86400 * 365);
 	var time_to   = parseInt(G.request['time_to']) || (moment().unix());
@@ -45,6 +48,7 @@ $(function(){
 	var $td = $('#input-kw-t-d').val(dt.getDate());
 
 	var $iptKw = $('#input-kw').val(G.request['keywords'] || '');
+	var $iptExclude = $('#input-kw-exclude').val(G.request['keywords_not' || '']);
 
 
 	$('#advance-search-button-show').mousedown(function(){
@@ -65,6 +69,7 @@ $(function(){
 
 	$('#advance-search-go').click(function(){
 		var kw = $iptKw.val();
+		var kwExclude = $iptExclude.val();
 		var _df = new Date(
 			parseInt($('#input-kw-f-y').val()),
 			parseInt($('#input-kw-f-m').val()) - 1,
@@ -81,17 +86,19 @@ $(function(){
 			return;
 		}
 		G.go(G.url('index', 'file', {
-			keywords    : kw,
-			order       : window.options.order || '1',
-			time_from   : _tf,
-			time_to     : _tt,
-			filenumType : (options.filenumType || ''),
-			filenumYear : (options.filenumYear || ''),
-			filenumNum  : $('#filenum-num').val(),
-			menucat     : options.menucat || '',
-			themecat    : options.themecat || '',
-			subcat      : options.subcat || '',
-			advance     : 'true'
+			keywords     : kw,
+			keywords_not : kwExclude,
+			order        : window.options.order || '1',
+			time_from    : _tf,
+			time_to      : _tt,
+			filenumType  : (options.filenumType || ''),
+			filenumYear  : (options.filenumYear || ''),
+			filenumNum   : $('#filenum-num').val(),
+			menucat      : options.menucat || '',
+			themecat     : options.themecat || '',
+			subcat       : options.subcat || '',
+			advance      : 'true',
+			position     : window.options.position || 'all'
 		}));
 	});
 

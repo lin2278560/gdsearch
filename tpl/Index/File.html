@@ -25,9 +25,15 @@
 		<div class="adv-line">
 			<div class="textbox">
 				<div class="label">
-					包含的关键词
+					包含以下关键词
 				</div>
 				<input type="text" id="input-kw">
+			</div>
+			<div class="textbox margin-left">
+				<div class="label">
+					不包含以下关键词
+				</div>
+				<input type="text" id="input-kw-exclude">
 			</div>
 		</div>
 		<div class="adv-line">
@@ -119,7 +125,7 @@
 		</div>
 		<div class="adv-line">
 			<div class="adv-label">
-				排序&emsp;方式：
+				排序方式：
 			</div>
 			<div class="position-select" id="sort-select">
 				<div class="item" key="1">
@@ -127,6 +133,22 @@
 				</div>
 				<div class="item" key="0">
 					相关程度
+				</div>
+			</div>
+		</div>
+		<div class="adv-line">
+			<div class="adv-label">
+				搜索位置：
+			</div>
+			<div class="position-select" id="position-select">
+				<div class="item" key="all">
+					网页的所有位置
+				</div>
+				<div class="item" key="title">
+					标题
+				</div>
+				<div class="item nm" key="content">
+					正文
 				</div>
 			</div>
 		</div>

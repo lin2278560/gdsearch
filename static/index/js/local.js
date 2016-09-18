@@ -25,48 +25,27 @@ $(function(){
 		return false;
 	});
 	$('#advance-search-go').click(function(){
-		var kwInclude = $iptInclude.val();
-		var kwExclude = $iptExclude.val();
-		var _df = new Date(
-			parseInt($('#input-kw-f-y').val()),
-			parseInt($('#input-kw-f-m').val()) - 1,
-			parseInt($('#input-kw-f-d').val())
-		);
-		var _dt = new Date(
-			parseInt($('#input-kw-t-y').val()),
-			parseInt($('#input-kw-t-m').val()) - 1,
-			parseInt($('#input-kw-t-d').val())
-		);
-		var _tf = Math.floor(_df.getTime() / 1000);
-		var _tt = Math.floor(_dt.getTime() / 1000);
-		if(!kwInclude.length){
-			return;
-		}
-		G.go(G.url('index', 'local', {
-			keywords : kwInclude,
-			keywords_not : kwExclude,
-			time_from : _tf,
-			time_to : _tt,
-			order : window.options.order || '1',
-			position : window.options.position || 'all',
+		var i;
+		var toCheck = ['order', 'position', 'time_from', 'time_to'];
+		var args = {
+			keywords : $iptInclude.val(),
+			keywords_not : $iptExclude.val(),
 			advance : 'true'
-		}));
+		};
+		for(i = 0; i < toCheck.length; i ++){
+			if(toCheck[i] in window.options){
+				args[toCheck[i]] = window.options[toCheck[i]];
+			}
+		}
+		G.go(G.url('index', 'local', args));
 	});
 
-	var time_from = parseInt(G.request['time_from']) || (moment().unix() - 86400 * 365);
-	var time_to   = parseInt(G.request['time_to']) || (moment().unix());
-	var df = new Date(),
-		dt = new Date();
-	df.setTime(time_from * 1000);
-	dt.setTime(time_to * 1000);
-
-	var $fy = $('#input-kw-f-y').val(df.getFullYear());
-	var $fm = $('#input-kw-f-m').val(df.getMonth() + 1);
-	var $fd = $('#input-kw-f-d').val(df.getDate());
-
-	var $ty = $('#input-kw-t-y').val(dt.getFullYear());
-	var $tm = $('#input-kw-t-m').val(dt.getMonth() + 1);
-	var $td = $('#input-kw-t-d').val(dt.getDate());
+	var $timeFrom = $('#time-from').asTimeSelect({
+		varname : 'time_from'
+	});
+	var $timeTo   = $('#time-to').asTimeSelect({
+		varname : 'time_to'
+	});
 
 	var $iptInclude = $('#input-kw-include').val(G.request['keywords'] || '');
 	var $iptExclude = $('#input-kw-exclude').val(G.request['keywords_not' || '']);

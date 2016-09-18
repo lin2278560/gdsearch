@@ -31,25 +31,8 @@ $(function(){
 		varname : 'position'
 	});
 
-	var time_from = parseInt(G.request['time_from']) || (moment().unix() - 86400 * 365);
-	var time_to   = parseInt(G.request['time_to']) || (moment().unix());
-
-	var df = new Date(),
-		dt = new Date();
-	df.setTime(time_from * 1000);
-	dt.setTime(time_to * 1000);
-
-	var $fy = $('#input-kw-f-y').val(df.getFullYear());
-	var $fm = $('#input-kw-f-m').val(df.getMonth() + 1);
-	var $fd = $('#input-kw-f-d').val(df.getDate());
-
-	var $ty = $('#input-kw-t-y').val(dt.getFullYear());
-	var $tm = $('#input-kw-t-m').val(dt.getMonth() + 1);
-	var $td = $('#input-kw-t-d').val(dt.getDate());
-
-	var $iptKw = $('#input-kw').val(G.request['keywords'] || '');
+	var $iptInclude = $('#input-kw-include').val(G.request['keywords'] || '');
 	var $iptExclude = $('#input-kw-exclude').val(G.request['keywords_not' || '']);
-
 
 	$('#advance-search-button-show').mousedown(function(){
 		window.advance = true;
@@ -67,39 +50,34 @@ $(function(){
 		$('#advance-search-button-show').mousedown();
 	}
 
+
 	$('#advance-search-go').click(function(){
-		var kw = $iptKw.val();
-		var kwExclude = $iptExclude.val();
-		var _df = new Date(
-			parseInt($('#input-kw-f-y').val()),
-			parseInt($('#input-kw-f-m').val()) - 1,
-			parseInt($('#input-kw-f-d').val())
-		);
-		var _dt = new Date(
-			parseInt($('#input-kw-t-y').val()),
-			parseInt($('#input-kw-t-m').val()) - 1,
-			parseInt($('#input-kw-t-d').val())
-		);
-		var _tf = Math.floor(_df.getTime() / 1000);
-		var _tt = Math.floor(_dt.getTime() / 1000);
-		if(!kw.length){
-			return;
-		}
-		G.go(G.url('index', 'file', {
-			keywords     : kw,
-			keywords_not : kwExclude,
-			order        : window.options.order || '1',
-			time_from    : _tf,
-			time_to      : _tt,
-			filenumType  : (options.filenumType || ''),
-			filenumYear  : (options.filenumYear || ''),
-			filenumNum   : $('#filenum-num').val(),
-			menucat      : options.menucat || '',
-			themecat     : options.themecat || '',
-			subcat       : options.subcat || '',
+		var i;
+		var toCheck = [
+			'order', 'position', 'time_from', 'time_to', 
+			'menucat', 'themecat', 'subcat',
+			'filenumType', 'filenumYear'];
+		var args = {
+			keywords     : $iptInclude.val(),
+			keywords_not : $iptExclude.val(),
 			advance      : 'true',
-			position     : window.options.position || 'all'
-		}));
+		};
+		for(i = 0; i < toCheck.length; i ++){
+			if(toCheck[i] in window.options){
+				args[toCheck[i]] = window.options[toCheck[i]];
+			}
+		}
+		if($('#filenum-num').val().length){
+			args['filenumNum'] = $('#filenum-num').val();
+		}
+		G.go(G.url('index', 'local', args));
+	});
+
+	var $timeFrom = $('#time-from').asTimeSelect({
+		varname : 'time_from'
+	});
+	var $timeTo   = $('#time-to').asTimeSelect({
+		varname : 'time_to'
 	});
 
 	$('#filenum-num').val(G.request['filenumNum'] || '');

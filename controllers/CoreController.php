@@ -36,6 +36,7 @@ class CoreController extends BaseController{
 		$FREYA_METHOD['module'] = $m[0];
 		$FREYA_METHOD['method'] = $m[1];
 
+		header('Access-Control-Allow-Origin:*');
 		Http::routeControllerAction(ucfirst($m[0]), $m[1]);
 	}
 

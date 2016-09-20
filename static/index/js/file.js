@@ -54,13 +54,15 @@ $(function(){
 	$('#advance-search-go').click(function(){
 		var i;
 		var toCheck = [
-			'order', 'position', 'time_from', 'time_to', 
+			'time_from', 'time_to', 
 			'menucat', 'themecat', 'subcat',
 			'filenumType', 'filenumYear'];
 		var args = {
 			keywords     : $iptInclude.val(),
 			keywords_not : $iptExclude.val(),
 			advance      : 'true',
+			order : 'order' in window.options ? window.options.order : '1',
+			position : 'position' in window.options ? window.options.position : 'all',
 		};
 		for(i = 0; i < toCheck.length; i ++){
 			if(toCheck[i] in window.options){

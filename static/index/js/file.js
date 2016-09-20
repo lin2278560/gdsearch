@@ -72,7 +72,7 @@ $(function(){
 		if($('#filenum-num').val().length){
 			args['filenumNum'] = $('#filenum-num').val();
 		}
-		G.go(G.url('index', 'local', args));
+		G.go(G.url('index', 'file', args));
 	});
 
 	var $timeFrom = $('#time-from').asTimeSelect({

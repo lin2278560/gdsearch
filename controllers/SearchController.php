@@ -169,6 +169,10 @@ class SearchController extends BaseController{
 		if ($filenum!="") {
 			$filenum = urlencode($filenum);
 		}
+
+		if ($filenumType=="粤府") {
+			$filenum .= "&filenumexclude=函令办";
+		}
 			// $filenum = $filenumType . " " . $filenumYear . " " . $filenumNum;
 
 		$check = str_replace(" ", "", $keywords);

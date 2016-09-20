@@ -30,14 +30,14 @@ $(function(){
 	});
 
 	var $searchButton = $('#search-button').click(function(){
-		doSearch();
+		doSearch(true);
 	});
 
 	var $advanceSearchButton = $('#advance-search-button');
 
 	var $inputKeywords = $('#input-keywords').keyup(function(e){
 		if(e.keyCode == 13){
-			doSearch();
+			doSearch(true);
 		}
 	}).val(G.request['keywords'] || '');
 
@@ -309,7 +309,7 @@ $(function(){
 		}
 	});
 
-	function doSearch(){
+	function doSearch(normalSearch){
 		var kw = $inputKeywords.val();
 		if(!kw.length){
 			return;
@@ -317,7 +317,7 @@ $(function(){
 		var data = {
 			keywords : kw
 		};
-		if(window.advance){
+		if(normalSearch !== true && window.advance){
 			data.advance = 'true';
 		}
 		G.go(G.url('index', type, data));

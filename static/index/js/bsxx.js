@@ -117,7 +117,8 @@ $(function(){
 				max : Math.ceil(qsrs.amount / 10)
 			});
 			$('#list-body').refreshList({
-				list : qsrs.navs
+				list : qsrs.navs,
+				total : qsrs.amount
 			});
 		}, function(c, m){
 			alert(m)

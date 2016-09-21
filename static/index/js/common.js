@@ -94,11 +94,13 @@ $(function(){
 		refreshList : function(option){
 			$(this).empty();
 			var i;
-			for(i = 0; i < option.list.length; i ++){
-				$(this).append(genListItem(option.list[i]));
-			}
 			if(option.list.length == 0){
 				$(this).html('<div class="empty-list"></div>');
+			}else{
+				$(this).append($('<div class="total-line">为您找到相关结果'+option.total+'个</div>'));
+				for(i = 0; i < option.list.length; i ++){
+					$(this).append(genListItem(option.list[i]));
+				}
 			}
 		},
 		refreshPage : function(option){

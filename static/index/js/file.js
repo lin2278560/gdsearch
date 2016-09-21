@@ -102,7 +102,8 @@ $(function(){
 				max : d.page_total
 			});
 			$('#list-body').refreshList({
-				list : d.list
+				list : d.list,
+				total : d.total
 			});
 		}, function(c, m){
 			alert(m);

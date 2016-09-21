@@ -47,23 +47,25 @@ class SearchController extends BaseController{
 			IO::E("请输入关键词");
 		}
 		if ($keywords=="") {
-			$keywords = "'*:*'";
+			$keywords = "*:*";
 		}
+
+		$qtext = $this->change_text($keywords);
+
 		switch ($position) {
 			case 'all':
 			case '':
-				$keyword = "q=" . urlencode($keywords) . "&exclude=" . urlencode($keywords_not);
+				$keyword = "q=" . urlencode($qtext) . "&exclude=" . urlencode($keywords_not);
 				break;
 			case 'title':
 				// $keyword = "stitle=" . urlencode($keywords) . "&q=" . urlencode($keywords);
-				$keyword = "q=" . urlencode($keywords) . "&stitle=" . urlencode($keywords) . "&texclude=" . urlencode($keywords_not);
+				$keyword = "q=" . urlencode($qtext) . "&stitle=" . urlencode($keywords) . "&texclude=" . urlencode($keywords_not);
 				break;
 			case 'content':
 				// $keyword = "scontent=" . urlencode($keywords) . "&q=" . urlencode($keywords);
-				$keyword = "q=" . urlencode($keywords) . "&scontent=" . urlencode($keywords) . "&cexclude=" . urlencode($keywords_not);
+				$keyword = "q=" . urlencode($qtext) . "&scontent=" . urlencode($keywords) . "&cexclude=" . urlencode($keywords_not);
 				break;
 		}
-
 		if ($time_to!="") {
 			$time_to = date("Y-m-d",$time_to);
 		}
@@ -126,18 +128,21 @@ class SearchController extends BaseController{
 		if ($keywords=="") {
 			$keywords = "'*:*'";
 		}
+
+		$qtext = $this->change_text($keywords);
+
 		switch ($position) {
 			case 'all':
 			case '':
-				$keyword = "&q=" . urlencode($keywords) . "&exclude=" . urlencode($keywords_not);
+				$keyword = "&q=" . urlencode($qtext) . "&exclude=" . urlencode($keywords_not);
 				break;
 			case 'title':
 				// $keyword = "stitle=" . urlencode($keywords) . "&q=" . urlencode($keywords);
-				$keyword = "&q=" . urlencode($keywords) . "&stitle=" . urlencode($keywords) . "&texclude=" . urlencode($keywords_not);
+				$keyword = "&q=" . urlencode($qtext) . "&stitle=" . urlencode($keywords) . "&texclude=" . urlencode($keywords_not);
 				break;
 			case 'content':
 				// $keyword = "scontent=" . urlencode($keywords) . "&q=" . urlencode($keywords);
-				$keyword = "&q=" . urlencode($keywords) . "&scontent=" . urlencode($keywords) . "&cexclude=" . urlencode($keywords_not);
+				$keyword = "&q=" . urlencode($qtext) . "&scontent=" . urlencode($keywords) . "&cexclude=" . urlencode($keywords_not);
 				break;
 		}
 
@@ -284,5 +289,18 @@ class SearchController extends BaseController{
 		// $res = Search::get_article($bsxx_url);
 		// var_dump($bsxx_url);
 		// IO::O($res);
+	}
+
+	public function change_text($text){
+		// var_dump($text);
+		$text_url = "http://172.18.9.65:9200/_analyze?analyzer=ik_smart&text=" . urlencode($text);
+		$return_text = "";
+		$text_json = Search::get_article($text_url);
+		$text_array = json_decode($text_json,true);
+		foreach ($text_array["tokens"] as $key => $value) {
+			$return_text .= $value["token"] . " ";
+		}
+		// var_dump($return_text);die();
+		return $return_text;
 	}
 }

@@ -39,7 +39,7 @@ $(function(){
 		if(e.keyCode == 13){
 			doSearch(true);
 		}
-	}).val(G.request['keywords'] || '');
+	}).val(G.request['keywords'] || '').focus();
 
 	$.fn.extend({
 		bindOptionDrag : function(option){

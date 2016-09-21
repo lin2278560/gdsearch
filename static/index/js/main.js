@@ -32,7 +32,7 @@ $(function(){
 		if(e.keyCode == 13){
 			doSearch();
 		}
-	});
+	}).focus();
 
 	function doSearch(){
 		var kw = $inputKeywords.val();

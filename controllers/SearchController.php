@@ -59,11 +59,11 @@ class SearchController extends BaseController{
 				break;
 			case 'title':
 				// $keyword = "stitle=" . urlencode($keywords) . "&q=" . urlencode($keywords);
-				$keyword = "q=" . urlencode($qtext) . "&stitle=" . urlencode($keywords) . "&texclude=" . urlencode($keywords_not);
+				$keyword = "q=" . urlencode($qtext) . "&stitle=" . urlencode($qtext) . "&texclude=" . urlencode($keywords_not);
 				break;
 			case 'content':
 				// $keyword = "scontent=" . urlencode($keywords) . "&q=" . urlencode($keywords);
-				$keyword = "q=" . urlencode($qtext) . "&scontent=" . urlencode($keywords) . "&cexclude=" . urlencode($keywords_not);
+				$keyword = "q=" . urlencode($qtext) . "&scontent=" . urlencode($qtext) . "&cexclude=" . urlencode($keywords_not);
 				break;
 		}
 		if ($time_to!="") {
@@ -138,11 +138,11 @@ class SearchController extends BaseController{
 				break;
 			case 'title':
 				// $keyword = "stitle=" . urlencode($keywords) . "&q=" . urlencode($keywords);
-				$keyword = "&q=" . urlencode($qtext) . "&stitle=" . urlencode($keywords) . "&texclude=" . urlencode($keywords_not);
+				$keyword = "&q=" . urlencode($qtext) . "&stitle=" . urlencode($qtext) . "&texclude=" . urlencode($keywords_not);
 				break;
 			case 'content':
 				// $keyword = "scontent=" . urlencode($keywords) . "&q=" . urlencode($keywords);
-				$keyword = "&q=" . urlencode($qtext) . "&scontent=" . urlencode($keywords) . "&cexclude=" . urlencode($keywords_not);
+				$keyword = "&q=" . urlencode($qtext) . "&scontent=" . urlencode($qtext) . "&cexclude=" . urlencode($keywords_not);
 				break;
 		}
 
@@ -293,7 +293,7 @@ class SearchController extends BaseController{
 
 	public function change_text($text){
 		// var_dump($text);
-		$text_url = "http://172.18.9.65:9200/_analyze?analyzer=ik_smart&text=" . urlencode($text);
+		$text_url = "http://172.18.9.65:9200/_analyze?analyzer=query_ansj&text=" . urlencode($text);
 		$return_text = "";
 		$text_json = Search::get_article($text_url);
 		$text_array = json_decode($text_json,true);

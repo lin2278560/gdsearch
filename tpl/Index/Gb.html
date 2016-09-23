@@ -1,0 +1,117 @@
+<div class="list-part list">
+	<div class="sort-line normal-search" id="sort-line" style="display:none;">
+		<div class="advance-show" id="advance-search-button-show">
+			更多/高级
+		</div>
+	</div>
+	<div class="sort-line advance-search">
+		<a class="hd">
+			高级搜索
+		</a>
+		<div class="advance-fold" id="advance-search-button-fold">
+			收起
+		</div>
+	</div>
+	<div class="advance-search">
+		<div class="adv-line">
+			<div class="textbox">
+				<div class="label">
+					包含以下关键词
+				</div>
+				<input type="text" id="input-kw-include">
+			</div>
+			<div class="textbox margin-left">
+				<div class="label">
+					不包含以下关键词
+				</div>
+				<input type="text" id="input-kw-exclude">
+			</div>
+		</div>
+		<div class="adv-line">
+			<div class="adv-label">
+				年份期号：
+			</div>
+			<div class="adv-label">
+				&emsp;&emsp;&emsp;
+			</div>
+			<div class="select" id="periodical-text-year">
+				<div class="selected">
+					年
+				</div>
+				<div class="arrow"></div>
+				<div class="list big">
+					<div class="item" key="">全部</div>
+					<{section name=i loop=$year_list}>
+					<div class="item" key="<{$year_list[i]}>"><{$year_list[i]}></div>
+					<{/section}>
+				</div>
+			</div>
+			<div class="textbox year">
+				<input type="text" id="periodical-text-num">
+				<div class="label">
+					期
+				</div>
+			</div>
+		</div>
+		<div class="adv-line">
+			<div class="adv-label">
+				搜索范围：
+			</div>
+			<div class="adv-label">
+				&emsp;&emsp;&emsp;
+			</div>
+			<div class="select" id="start-year">
+				<div class="selected">
+					年
+				</div>
+				<div class="arrow"></div>
+				<div class="list big">
+					<div class="item" key="">全部</div>
+					<{section name=i loop=$year_list}>
+					<div class="item" key="<{$year_list[i]}>"><{$year_list[i]}></div>
+					<{/section}>
+				</div>
+			</div>
+			<div class="adv-label">
+				&emsp;至
+			</div>
+			<div class="select" id="end-year">
+				<div class="selected">
+					年
+				</div>
+				<div class="arrow"></div>
+				<div class="list big">
+					<div class="item" key="">全部</div>
+					<{section name=i loop=$year_list}>
+					<div class="item" key="<{$year_list[i]}>"><{$year_list[i]}></div>
+					<{/section}>
+				</div>
+			</div>
+		</div>
+		<div class="adv-line">
+			<div class="adv-label">
+				搜索位置：
+			</div>
+			<div class="position-select" id="position-select">
+				<div class="item" key="title">
+					标题
+				</div>
+				<div class="item nm" key="content">
+					正文
+				</div>
+				<div class="item nm" key="all">
+					网页的所有位置
+				</div>
+			</div>
+			<div class="advance-search-go" id="advance-search-go"></div>
+		</div>
+	</div>
+	<div class="list-body" id="list-body">
+		<div class="list-loading" id="list-loading">
+			
+		</div>
+	</div>
+	<div class="page-list" id="page-list">
+		
+	</div>
+</div>

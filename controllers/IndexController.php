@@ -64,7 +64,11 @@ class IndexController extends BaseController{
 
 	public function gb(){
 		$kw = IO::I('keywords');
-		header('Location:http://www.gd.gov.cn/govpub/zfgb/');
+		// header('Location:http://www.gd.gov.cn/govpub/zfgb/');
+		$this->show('Index/Gb', [
+			'year_list' => range(1999, intval(date('Y'))),
+			'title' => '省政府公报搜索 - 广东省人民政府门户网站'
+		]);
 	}
 
 }

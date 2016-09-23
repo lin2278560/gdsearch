@@ -39,18 +39,22 @@ class SearchController extends BaseController{
 		$keywords_not 	= IO::I("keywords_not" , "");
 		$time_from 		= IO::I("time_from" , "");
 		$time_to 		= IO::I("time_to" , "");
-		$position 		= IO::I("position" , "title");
+		$position 		= IO::I("position" , "all");
 		$page 			= IO::I("page" , "1");
 		$order 			= IO::I("order" , "1");
 		$check = str_replace(" ", "", $keywords);
-		if ($check == ""&&$time_from ==""&&$time_to=="") {
-			IO::E("请输入关键词");
-		}
+		// if ($check == ""&&$time_from ==""&&$time_to=="") {
+		// 	IO::E("请输入关键词");
+		// }
 		if ($keywords=="") {
 			$keywords = "*:*";
+			$qtext = "";
+		}
+		else{
+			$qtext = $this->change_text($keywords);
 		}
 
-		$qtext = $this->change_text($keywords);
+		// $qtext = $this->change_text($keywords);
 
 		switch ($position) {
 			case 'all':
@@ -123,14 +127,16 @@ class SearchController extends BaseController{
 		$themecat = IO::I("themecat","");
 		$subcat = IO::I("subcat","");
 
-		$position 		= IO::I("position" , "title");
+		$position 		= IO::I("position" , "all");
 		$keywords_not = IO::I("keywords_not" , "");
 		if ($keywords=="") {
-			$keywords = "'*:*'";
+			$keywords = "*:*";
+			$qtext = "";
 		}
-
-		$qtext = $this->change_text($keywords);
-
+		else{
+			$qtext = $this->change_text($keywords);
+		}
+		
 		switch ($position) {
 			case 'all':
 			case '':

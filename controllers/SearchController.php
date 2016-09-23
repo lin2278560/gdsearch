@@ -92,10 +92,10 @@ class SearchController extends BaseController{
         $total = $data["information"]["count"];
         $page_total = ceil($data["information"]["count"]/20);
         $list = [];
-        if ($data["information"]["count"]=="1") {
+        if ($data["information"]["count"]=="1"||($page_total==$page&&$data["information"]["count"]%20==1)) {
         	$data["Document"]["url"] = $data["Document"]["link"];
         	unset($data["Document"]["link"]);
-			IO::O(["total"=>"1","page_total"=>"1","list"=>["0"=>$data["Document"]]]);
+			IO::O(["total"=>$total,"page_total"=>$page_total,"list"=>["0"=>$data["Document"]]]);
         }
 
         foreach ($data["Document"] as $key => $value) {
@@ -213,7 +213,7 @@ class SearchController extends BaseController{
         $total = $data["information"]["count"];
         $page_total = ceil($data["information"]["count"]/20);
         $list = [];
-        if ($data["information"]["count"]=="1") {
+        if ($data["information"]["count"]=="1"||($page_total==$page&&$data["information"]["count"]%20==1)) {
         	$data["Document"]["indexnum"] = $data["Document"]["INDEXNUM"];
         	unset($data["Document"]["INDEXNUM"]);
         	$data["Document"]["url"] = $data["Document"]["URL"];
@@ -231,7 +231,7 @@ class SearchController extends BaseController{
         	$data["Document"]["menucat"] = $data["Document"]["MENUCAT"];
         	unset($data["Document"]["MENUCAT"]);
         	$data["Document"]["date"] = $data["Document"]["issued"];
-			IO::O(["total"=>"1","page_total"=>"1","list"=>["0"=>$data["Document"]]]);
+			IO::O(["total"=>$total,"page_total"=>$page_total,"list"=>["0"=>$data["Document"]]]);
         }
 
 
@@ -257,6 +257,101 @@ class SearchController extends BaseController{
         	$list[] = $value;
         }
         IO::O(["total"=>$total,"page_total"=>$page_total,"list"=>$list]);
+	}
+
+	public function gb(){
+		$gb_url = "http://172.18.8.31:8080/gb?";
+		$keywords = IO::I("keywords","");
+		$position = IO::I("position","title");
+		$periodical_text_year = IO::I("periodical_text_year","");
+		$periodical_text_num = IO::I("periodical_text_num","");
+		$start_year = IO::I("start_year","");
+		$end_year = IO::I("end_year","");
+		$page = IO::I("page","1");
+
+		if ($keywords=="") {
+			$keywords = "*:*";
+			$qtext = "";
+		}
+		else{
+			$qtext = $this->change_text($keywords);
+		}
+
+		switch ($position) {
+			case 'all':
+				$keyword = "q=" . urlencode($qtext);
+				break;
+			
+			case 'title':
+				$keyword = "q=" . urlencode($qtext) . "&stitle=" . urlencode($qtext);
+				break;
+
+			case 'content':
+				$keyword = "q=" . urlencode($qtext) . "&scontent=" . urlencode($qtext);
+				break;
+		}
+		$gb_url .= $keyword . "&periodical_text_year=" . $periodical_text_year . "&periodical_text_num=" . $periodical_text_num . "&start_year=" . $start_year . "&end_year" . $end_year . "&page=" . $page;
+
+		$res = Search::get_article($gb_url);
+        $data = simplexml_load_string($res,'SimpleXMLElement',LIBXML_NOCDATA);
+        $data = Search::object_array($data);  //Object -> array
+
+
+		if ($data["information"]["page_count"]=="0") {
+			IO::O(["total"=>"0","page_total"=>"0","list"=>[]]);
+		}
+
+        $total = $data["information"]["count"];
+        $page_total = ceil($data["information"]["count"]/20);
+        $list = [];       
+        if ($data["information"]["count"]=="1"||($page_total==$page&&$data["information"]["count"]%20==1)) {
+        	// $data["Document"]["indexnum"] = $data["Document"]["INDEXNUM"];
+        	// unset($data["Document"]["INDEXNUM"]);
+        	$data["Document"]["url"] = $data["Document"]["URL"];
+        	unset($data["Document"]["URL"]);
+        	$data["Document"]["menu_url"] = $data["Document"]["MENU_URL"];
+        	unset($data["Document"]["MENU_URL"]);
+        	$data["Document"]["title"] = $data["Document"]["TITLE"];
+        	unset($data["Document"]["TITLE"]);
+        	// $data["Document"]["pubdate"] = $data["Document"]["PUBDATE"];
+        	// unset($data["Document"]["PUBDATE"]);
+        	$data["Document"]["content"] = $data["Document"]["CONTENT"];
+        	unset($data["Document"]["CONTENT"]);
+        	// $data["Document"]["publisher"] = $data["Document"]["PUBLISHER"];
+        	// unset($data["Document"]["PUBLISHER"]);
+        	// $data["Document"]["filenum"] = $data["Document"]["FILENUM"];
+        	// unset($data["Document"]["FILENUM"]);
+        	// $data["Document"]["menucat"] = $data["Document"]["MENUCAT"];
+        	// unset($data["Document"]["MENUCAT"]);
+        	// $data["Document"]["date"] = $data["Document"]["issued"];
+			IO::O(["total"=>$total,"page_total"=>$page_total,"list"=>["0"=>$data["Document"]]]);
+        }
+
+        foreach ($data["Document"] as $key => $value) {
+        	// $value["indexnum"] = $value["INDEXNUM"];
+        	// unset($value["INDEXNUM"]);
+        	$value["url"] = $value["URL"];
+        	unset($value["URL"]);
+        	$value["menu_url"] = $value["MENU_URL"];
+        	unset($value["MENU_URL"]);
+        	$value["title"] = $value["TITLE"];
+        	unset($value["TITLE"]);
+        	// $value["pubdate"] = $value["PUBDATE"];
+        	// unset($value["PUBDATE"]);
+        	$value["content"] = $value["CONTENT"];
+        	unset($value["CONTENT"]);
+        	// $value["publisher"] = $value["PUBLISHER"];
+        	// unset($value["PUBLISHER"]);
+        	// $value["filenum"] = $value["FILENUM"];
+        	// unset($value["FILENUM"]);
+        	// $value["menucat"] = $value["MENUCAT"];
+        	// unset($value["MENUCAT"]);
+        	// $value["date"] = $value["issued"];
+
+        	$list[] = $value;
+        }
+        IO::O(["total"=>$total,"page_total"=>$page_total,"list"=>$list]);
+
 	}
 
 	public function bsxx(){

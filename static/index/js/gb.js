@@ -50,7 +50,7 @@ $(function(){
 	var $iptPNum    = $('#periodical-text-num').val(G.request['periodical_text_num' || '']);
 
 	if("advance" in G.request){
-		$('#advance-search-button-show').mousedown();
+		// $('#advance-search-button-show').mousedown();
 	}
 	(function(o){
 		var m = {};

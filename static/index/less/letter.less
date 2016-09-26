@@ -1,5 +1,20 @@
 @import "../../core/less/ui.var.less";
-
+@media (min-width:640px){
+	.screen-pc{
+		display:block;
+	}
+	.screen-mobi{
+		display:none;
+	}
+}
+@media (max-width:640px){
+	.screen-pc{
+		display:none;
+	}
+	.screen-mobi{
+		display:block;
+	}
+}
 .letter-header{
 	width:100%;
 	position:relative;
@@ -217,4 +232,31 @@
 	margin:16px auto;
 	cursor:pointer;
 	font-size:16px;
+}
+.mb-page{
+	position:fixed;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+	right:0;
+	bottom:0;
+	overflow:auto;
+	background-color:#f7f7f7;
+	z-index:100;
+}
+.weui-button-field{
+	margin:12px;
+}
+.mb-hd{
+	width:100%;
+	height:64px;
+	line-height:64px;
+	color:@blue-normal;
+	font-size:24px;
+	text-align:center;
+	margin:44px 0 0 0;
+}
+.footer-holder{
+	height:44px;
 }

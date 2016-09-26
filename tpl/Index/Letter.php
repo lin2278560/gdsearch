@@ -13,6 +13,9 @@ class Letter extends TplConfig{
 			'js'   => [
 				'index/js/letter'
 			],
+			'css'  => [
+				'core/css/weui.min'
+			],
 			'less' => [
 				'index/less/letter'
 			]

@@ -58,7 +58,7 @@ $(function(){
 		var i;
 		for(i = 0; i < toCheck.length; i ++){
 			data[toCheck[i]] = $('#' + toCheck[i]).val();
-			if(data[toCheck[i]].length == 0){
+			if(toCheck[i] != 'idcard' && data[toCheck[i]].length == 0){
 				alert('请先填写完整所有表单项');
 				return;
 			}
@@ -80,8 +80,7 @@ $(function(){
 		var i;
 		for(i = 0; i < toCheck.length; i ++){
 			data[toCheck[i]] = $('#mobi-' + toCheck[i]).val();
-			console.log('#mobi-' + toCheck[i]);
-			if(data[toCheck[i]].length == 0){
+			if(toCheck[i] != 'idcard' && data[toCheck[i]].length == 0){
 				alert('请先填写完整所有表单项');
 				return;
 			}
@@ -95,6 +94,22 @@ $(function(){
 			alert(m);
 			$(that).html('提交');
 		});
+	});
+
+	$('#email').blur(function(){
+		if($(this).val().match(/\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/)){
+			$(this).parent().removeClass('warning');
+		}else{
+			$(this).parent().addClass('warning');
+		}
+	});
+
+	$('#mobi-email').blur(function(){
+		if($(this).val().match(/\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/)){
+			$(this).parent().parent().removeClass('weui_cell_warn');
+		}else{
+			$(this).parent().parent().addClass('weui_cell_warn');
+		}
 	});
 
 });

@@ -32,12 +32,14 @@
 	<div class="row">
 		<div class="letter-textbox">
 			<div class="label">
+				<span class="needed">*</span>
 				昵称：
 			</div>
 			<input type="text" id="nickname">
 		</div>
 		<div class="letter-textbox">
 			<div class="label">
+				<span class="needed">*</span>
 				姓名：
 			</div>
 			<input type="text" id="name">
@@ -52,6 +54,7 @@
 		</div>
 		<div class="letter-textbox">
 			<div class="label">
+				<span class="needed">*</span>
 				联系电话：
 			</div>
 			<input type="text" id="phone">
@@ -60,12 +63,15 @@
 	<div class="row">
 		<div class="letter-textbox">
 			<div class="label">
+				<span class="needed">*</span>
 				电子邮件：
 			</div>
+			<div class="warn">格式不对</div>
 			<input type="text" id="email">
 		</div>
 		<div class="letter-textbox">
 			<div class="label">
+				<span class="needed">*</span>
 				职业：
 			</div>
 			<input type="text" id="career">
@@ -74,6 +80,7 @@
 	<div class="row">
 		<div class="letter-textbox long">
 			<div class="label">
+				<span class="needed">*</span>
 				通讯地址：
 			</div>
 			<input type="text" id="address">
@@ -85,6 +92,7 @@
 		</div>
 		<div class="letter-textbox long nm">
 			<div class="label">
+				<span class="needed">*</span>
 				标题：
 			</div>
 			<input type="text" id="title">
@@ -127,7 +135,7 @@
         <div class="weui_cell">
             <div class="weui_cell_hd"><label class="weui_label">身份证</label></div>
             <div class="weui_cell_bd weui_cell_primary">
-                <input class="weui_input" id="mobi-idcard"/>
+                <input class="weui_input" id="mobi-idcard" placeholder="非必填" />
             </div>
         </div>
         <div class="weui_cell">
@@ -140,6 +148,9 @@
             <div class="weui_cell_hd"><label class="weui_label">邮箱</label></div>
             <div class="weui_cell_bd weui_cell_primary">
                 <input class="weui_input" id="mobi-email"/>
+            </div>
+            <div class="weui_cell_ft">
+                <i class="weui_icon_warn"></i>
             </div>
         </div>
         <div class="weui_cell">

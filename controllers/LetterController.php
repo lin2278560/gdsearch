@@ -33,20 +33,24 @@ class LetterController extends BaseController{
 	public function submit(){
 		$toCheck = [
 			'nickname', 'name',
-			'idcard', 'phone',
-			'email', 'career',
-			'address', 'title',
-			'content', 'vericode'
+			'phone', 'email',
+			'career', 'address',
+			'title','content',
+			'vericode'
 		];
 		$data = [];
 		foreach ($toCheck as $k) {
 			$data[$k] = IO::I($k);
 		}
+		$data["idcard"] = IO::I("idcard","");
 		if(!\Lib\Core\Vericode::check_code($data['vericode'])){
 			IO::E('验证码不正确！');
 		}
 		\Lib\Core\Vericode::flush_code();
 		# TODO
+		if (!IO::match_email($data['email'])) {
+			IO::E('请输入正确的邮箱地址！');
+		}
 		$data["time"] = time();
 		unset($data["vericode"]);
 		DB::insert($data,"letter");

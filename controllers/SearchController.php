@@ -64,6 +64,7 @@ class SearchController extends BaseController{
 			case 'title':
 				// $keyword = "stitle=" . urlencode($keywords) . "&q=" . urlencode($keywords);
 				$keyword = "q=" . urlencode($qtext) . "&stitle=" . urlencode($qtext) . "&texclude=" . urlencode($keywords_not);
+				// $keyword = "q=" . urlencode($qtext) . urlencode($keywords) . "&stitle=" . urlencode($qtext). urlencode($keywords) . "&texclude=" . urlencode($keywords_not);
 				break;
 			case 'content':
 				// $keyword = "scontent=" . urlencode($keywords) . "&q=" . urlencode($keywords);
@@ -136,7 +137,7 @@ class SearchController extends BaseController{
 		else{
 			$qtext = $this->change_text($keywords);
 		}
-		
+
 		switch ($position) {
 			case 'all':
 			case '':
@@ -206,7 +207,7 @@ class SearchController extends BaseController{
 		$keywords = urlencode($keywords);
 		
 		// $file_url = $file_url . "&q=" . $keywords . "&start_applytime=" . $time_from . "&endtime=" . $time_to . "&page" . $page . "&menucat=" .$menucat . "&filenum=" .$filenum . "&order_pubdate=" . $order . "&page=" . $page . "&themecat=" . $themecat . "&subcat=" . $subcat;
-		$file_url = $file_url . $keyword . "&start_applytime=" . $time_from . "&endtime=" . $time_to . "&page" . $page . "&menucat=" .$menucat . "&filenum=" .$filenum . "&order_pubdate=" . $order . "&page=" . $page . "&themecat=" . $themecat . "&subcat=" . $subcat;
+		$file_url = $file_url . $keyword . "&start_applytime=" . $time_from . "&endtime=" . $time_to .  "&menucat=" .$menucat . "&filenum=" .$filenum . "&order_pubdate=" . $order . "&page=" . $page . "&themecat=" . $themecat . "&subcat=" . $subcat . "&areaid=0";
 // var_dump($file_url);die();
 		$res = Search::get_article($file_url);
         $data = simplexml_load_string($res,'SimpleXMLElement',LIBXML_NOCDATA);

@@ -13,7 +13,7 @@ class CoreController extends BaseController{
 	}
 
 	public function browser(){
-
+		$this->show('Core/Bp');
 	}
 
 	public function debug(){

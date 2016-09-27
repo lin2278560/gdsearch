@@ -8,9 +8,10 @@ class Letter extends TplConfig{
 
 	public function getConfig(){
 
-		$config = TPL::extendConfig('Core/Common', [
+		$config = TPL::extendConfig('Index/Common', [
             'header_tpl' => $this->dirTpl('Core/EmptyHeader'),
 			'js'   => [
+				'core/js/IDValidator',
 				'index/js/letter'
 			],
 			'css'  => [

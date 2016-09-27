@@ -23,6 +23,8 @@ class IndexController extends BaseController{
 				'local'  => '本网搜索',
 				'file'   => '文件搜索',
 				'bsxx'   => '办事信息',
+				'gb'     => '公报搜索',
+				'qs'     => '全省搜索',
 				'letter' => '对省长说'
 			]
 		];

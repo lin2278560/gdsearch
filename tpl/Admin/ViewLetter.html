@@ -1,0 +1,102 @@
+<div class="col visi all">
+	<div class="row x1">
+		<div class="label free with-icon as-hd">
+			<i class="entypo-icon-doc-text"></i>
+			<span>留言查看</span>
+		</div>
+	</div>
+</div>
+<div class="col visi all margin-top">
+	<div class="row x1">
+		<div class="label free margin-left">
+			<span>标题：</span>
+			<span><{$letter_data['title']}></span>
+		</div>
+	</div>
+	<div class="hor-split"></div>
+	<div class="row x1">
+		<div class="label free margin-left">
+			<span>内容：</span>
+		</div>
+	</div>
+	<div class="hor-split-margin"></div>
+	<div class="row x8">
+		<div class="auto-text-out">
+			<div class="in">
+				<textarea><{$letter_data['content']}></textarea>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="col visi all margin-top">
+	<div class="row x1">
+		<div class="label free margin-left">
+			<span>联系信息：</span>
+		</div>
+	</div>
+	<div class="hor-split-margin"></div>
+	<div class="row">
+		<div class="col left half">
+			<div class="row x1">
+				<div class="label margin-left">
+					昵称：
+				</div>
+				<div class="label free">
+					<{$letter_data['nickname']}>
+				</div>
+			</div>
+			<div class="row x1">
+				<div class="label margin-left">
+					电话：
+				</div>
+				<div class="label free">
+					<{$letter_data['phone']}>
+				</div>
+			</div>
+			<div class="row x1">
+				<div class="label margin-left">
+					邮箱：
+				</div>
+				<div class="label free">
+					<{$letter_data['email']}>
+				</div>
+			</div>
+		</div>
+		<div class="col right half">
+			<div class="row x1">
+				<div class="label margin-left">
+					名字：
+				</div>
+				<div class="label free">
+					<{$letter_data['name']}>
+				</div>
+			</div>
+			<div class="row x1">
+				<div class="label margin-left">
+					职业：
+				</div>
+				<div class="label free">
+					<{$letter_data['career']}>
+				</div>
+			</div>
+			<div class="row x1">
+				<div class="label margin-left">
+					身份证号码：
+				</div>
+				<div class="label free">
+					<{$letter_data['idcard']}>
+				</div>
+			</div>
+		</div>
+		<div class="col all">
+			<div class="row x1">
+				<div class="label margin-left">
+					联系地址：
+				</div>
+				<div class="label free">
+					<{$letter_data['address']}>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

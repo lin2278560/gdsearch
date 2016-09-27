@@ -45,6 +45,15 @@ class Http{
 			IO::E(-404, '路由不存在（1）');
 		}
 
+		if($auth && (!\Lib\User\Auth::is_ca_ignored($c, $a))){
+			$u = \Lib\User\User::auth();
+			if(\Lib\User\Auth::is_permitted($u, $c, $a)){
+
+			}else{
+				IO::E('权限不足');
+			}
+		}
+
 		global $_RG;
 		$_RG['controller']      = $c;
 		$_RG['action']          = $a;

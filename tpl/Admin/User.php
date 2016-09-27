@@ -1,19 +1,20 @@
 <?php
 
-namespace Tpl\Index;
+namespace Tpl\Admin;
 use Tpl\Config as TplConfig;
 use Lib\Core\TPL as TPL;
 
-class LocalAdvance extends TplConfig{
+class User extends TplConfig{
 
 	public function getConfig(){
 
-		$config = TPL::extendConfig('Core/Common', [
+		$config = TPL::extendConfig('Admin/Common', [
 			'js'   => [
-				'index/js/localadvance'
+				'core/js/md5',
+				'admin/js/user'
 			],
 			'less' => [
-				'index/less/localadvance'
+				'admin/less/user'
 			]
 		]);
 

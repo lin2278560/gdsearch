@@ -8,7 +8,7 @@ class Main extends TplConfig{
 
 	public function getConfig(){
 
-		$config = TPL::extendConfig('Core/Common', [
+		$config = TPL::extendConfig('Index/Common', [
 			'js'   => [
 				'index/js/main'
 			],

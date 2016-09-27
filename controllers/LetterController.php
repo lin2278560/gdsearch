@@ -19,8 +19,9 @@ class LetterController extends BaseController{
 		return [
 			'desc'    => 'LetterController模块',
 			'actions' => [
-				'main'   => '主页面',
-				'submit' => '提交留言内容'
+				'main'    => '主页面',
+				'submit'  => '提交留言内容',
+				'getList' => '列出留言列表'
 			]
 		];
 	}
@@ -29,6 +30,17 @@ class LetterController extends BaseController{
 		
 	}
 
+	public function getList(){
+		$offset = IO::I('offset', null, 'uint');
+		$count  = IO::I('count', null, 'uint');
+
+		$total  = DB::one("SELECT COUNT(`id`) FROM `letter`");
+		$list   = DB::all("SELECT `id`,`nickname`,`title`,`time` FROM `letter` ORDER BY `id` DESC LIMIT $offset,$count");
+		IO::O([
+			'total' => $total,
+			'list'  => $list
+		]);
+	}
 
 	public function submit(){
 		$toCheck = [

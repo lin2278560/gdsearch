@@ -6,7 +6,11 @@ $(function(){
 	var letterList = ui('#letter-list', {
 		extend : {
 
-			sp : ui('#sp-letter'),
+			sp : ui('#sp-letter', {
+				gotoPage : function(n){
+					letterList.refresh(n - 1);
+				}
+			}),
 
 			refresh : function(page){
 				page = page || 0;

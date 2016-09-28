@@ -7,6 +7,7 @@ use Lib\Core\DB;
 use Lib\Core\IO;
 use Lib\Search\Search;
 use Lib\Search\Snoopy;
+use Lib\Search\Keyword;
 
 class SearchController extends BaseController{
 
@@ -53,6 +54,7 @@ class SearchController extends BaseController{
 		else{
 			$qtext = $this->change_text($keywords);
 		}
+		Keyword::count_keywords($keywords,"local");
 
 		// $qtext = $this->change_text($keywords);
 
@@ -137,6 +139,8 @@ class SearchController extends BaseController{
 		else{
 			$qtext = $this->change_text($keywords);
 		}
+
+		Keyword::count_keywords($keywords,"file");
 
 		switch ($position) {
 			case 'all':
@@ -283,6 +287,7 @@ class SearchController extends BaseController{
 		else{
 			$qtext = $this->change_text($keywords);
 		}
+		Keyword::count_keywords($keywords,"gb");
 
 		switch ($position) {
 			case 'all':
@@ -365,6 +370,15 @@ class SearchController extends BaseController{
 		$bsxx_url = "http://www.gdbs.gov.cn/wsbssearch/GetUserData?providername=search";
 
 		$searchkey = IO::I("keywords");
+
+		if ($searchkey=="") {
+			$keyword = "*:*";
+		}else{
+			$keyword = $searchkey;
+		}
+		Keyword::count_keywords($keyword,"bsxx");
+
+
 		$pageindex = IO::I("page","1");
 		$searchtype = IO::I("searchtype","");
 		$division = IO::I("division","");
@@ -405,4 +419,5 @@ class SearchController extends BaseController{
 		// var_dump($return_text);die();
 		return $return_text;
 	}
+
 }

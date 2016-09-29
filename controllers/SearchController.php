@@ -54,7 +54,9 @@ class SearchController extends BaseController{
 		else{
 			$qtext = $this->change_text($keywords);
 		}
-		Keyword::count_keywords($keywords,"local");
+		if ($page=="1") {
+			Keyword::count_keywords($keywords,"local");
+		}
 
 		// $qtext = $this->change_text($keywords);
 
@@ -139,8 +141,9 @@ class SearchController extends BaseController{
 		else{
 			$qtext = $this->change_text($keywords);
 		}
-
-		Keyword::count_keywords($keywords,"file");
+		if ($page=="1") {
+			Keyword::count_keywords($keywords,"file");			
+		}
 
 		switch ($position) {
 			case 'all':
@@ -287,7 +290,9 @@ class SearchController extends BaseController{
 		else{
 			$qtext = $this->change_text($keywords);
 		}
-		Keyword::count_keywords($keywords,"gb");
+		if ($page=="1") {
+			Keyword::count_keywords($keywords,"gb");
+		}
 
 		switch ($position) {
 			case 'all':
@@ -370,16 +375,17 @@ class SearchController extends BaseController{
 		$bsxx_url = "http://www.gdbs.gov.cn/wsbssearch/GetUserData?providername=search";
 
 		$searchkey = IO::I("keywords");
+		$pageindex = IO::I("page","1");
 
 		if ($searchkey=="") {
 			$keyword = "*:*";
 		}else{
 			$keyword = $searchkey;
 		}
-		Keyword::count_keywords($keyword,"bsxx");
+		if ($pageindex=="1") {
+			Keyword::count_keywords($keyword,"bsxx");
+		}
 
-
-		$pageindex = IO::I("page","1");
 		$searchtype = IO::I("searchtype","");
 		$division = IO::I("division","");
 		$orgcode = IO::I("orgcode","");

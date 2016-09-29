@@ -42,7 +42,7 @@ class SearchController extends BaseController{
 		$time_to 		= IO::I("time_to" , "");
 		$position 		= IO::I("position" , "all");
 		$page 			= IO::I("page" , "1");
-		$order 			= IO::I("order" , "1");
+		$order 			= IO::I("order" , "0");
 		$check = str_replace(" ", "", $keywords);
 		// if ($check == ""&&$time_from ==""&&$time_to=="") {
 		// 	IO::E("请输入关键词");
@@ -121,7 +121,7 @@ class SearchController extends BaseController{
 		$time_from = IO::I("time_from","");
 		$time_to = IO::I("time_to","");
 		$page = IO::I("page","1");
-		$order = IO::I("order","2");
+		$order = IO::I("order","0");
 		if ($order == "1") {
 			$order = "2";
 		}

@@ -121,7 +121,7 @@ class Keyword{
         	else{
         		$pdata = [];
         		$pdata["keyword"] = $value;
-        		$pdata["pinyin"] = $p->permalink($value);
+        		$pdata["pinyin"] = $p->permalink($value,"_");
         		$pdata["count"] = 1;
         		$pdata["time"] = $time;
         		DB::insert($pdata,"keyword_count_all");

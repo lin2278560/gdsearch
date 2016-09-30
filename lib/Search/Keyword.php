@@ -115,6 +115,7 @@ class Keyword{
         	else{
 				$pcheck = DB::assoc("select * from `keyword_count_all` where `keyword` = '$value'");
 	        	if ($pcheck["id"]) {
+	        		$pdata = [];
 	        		$pdata["count"] = $pcheck["count"] + 1;
 	        		$id = $pcheck["id"];
 	        		DB::update($pdata,"keyword_count_all","`id` = $id");

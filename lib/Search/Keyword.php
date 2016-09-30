@@ -112,19 +112,21 @@ class Keyword{
         	if ($value=="") {
         		continue;
         	}
-			$pcheck = DB::assoc("select * from `keyword_count_all` where `keyword` = '$value'");
-        	if ($pcheck["id"]) {
-        		$pdata["count"] = $pcheck["count"] + 1;
-        		$id = $pcheck["id"];
-        		DB::update($pdata,"keyword_count_all","`id` = $id");
-        	}
         	else{
-        		$pdata = [];
-        		$pdata["keyword"] = $value;
-        		$pdata["pinyin"] = $p->permalink($value,"_");
-        		$pdata["count"] = 1;
-        		$pdata["time"] = $time;
-        		DB::insert($pdata,"keyword_count_all");
+				$pcheck = DB::assoc("select * from `keyword_count_all` where `keyword` = '$value'");
+	        	if ($pcheck["id"]) {
+	        		$pdata["count"] = $pcheck["count"] + 1;
+	        		$id = $pcheck["id"];
+	        		DB::update($pdata,"keyword_count_all","`id` = $id");
+	        	}
+	        	else{
+	        		$pdata = [];
+	        		$pdata["keyword"] = $value;
+	        		$pdata["pinyin"] = $p->permalink($value,"_");
+	        		$pdata["count"] = 1;
+	        		$pdata["time"] = $time;
+	        		DB::insert($pdata,"keyword_count_all");
+	        	}
         	}
         }
 

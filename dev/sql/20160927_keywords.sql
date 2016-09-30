@@ -5,3 +5,5 @@ ALTER TABLE `keyword_log` CHANGE `keyword` `keyword` TEXT CHARACTER SET utf8 COL
 ALTER TABLE `keyword_log` ADD `pinyin` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL AFTER `keyword`;
 ALTER TABLE `keyword_count` ADD `time` INT(10) UNSIGNED NOT NULL ;
 ALTER TABLE `keyword_log` CHANGE `keyword` `keyword` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL, CHANGE `pinyin` `pinyin` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL;
+ALTER TABLE `keyword_count` CHANGE `keyword` `keyword` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL, CHANGE `pinyin` `pinyin` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL;
+CREATE TABLE `keyword_count_all` ( `id` INT UNSIGNED NOT NULL AUTO_INCREMENT , `keyword` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL , `pinyin` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL , `count` BIGINT UNSIGNED NOT NULL , `time` INT(10) UNSIGNED NOT NULL , PRIMARY KEY (`id`) ) ENGINE = InnoDB;

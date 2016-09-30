@@ -2,6 +2,7 @@
 
 namespace Lib\Search;
 use Lib\Core\DB;
+use Lib\Search\Search;
 
 class Keyword{
 
@@ -93,7 +94,7 @@ class Keyword{
         $keyword_string = implode($keyword_array, " ");
         $check = DB::assoc("select * from `keyword_count` where `keyword` = '$keyword'");
         if ($check["id"]) {
-        	$data["count"] = $check["count"]+1;
+        	$data["count"] = $check["count"] + 1;
         	$id = $check["id"];
         	DB::update($data,"keyword_count","`id` = $id");
         }
@@ -104,6 +105,29 @@ class Keyword{
         	$data["time"] = $time;
         	DB::insert($data,"keyword_count");
         }
+
+        $ptext = self::change_text($keyword);
+        $parray = explode(" ", $ptext);
+        foreach ($parray as $key => $value) {
+        	if ($value=="") {
+        		continue;
+        	}
+			$pcheck = DB::assoc("select * from `keyword_count_all` where `keyword` = '$value'");
+        	if ($pcheck["id"]) {
+        		$pdata["count"] = $pcheck["count"] + 1;
+        		$id = $pcheck["id"];
+        		DB::update($pdata,"keyword_count_all","`id` = $id");
+        	}
+        	else{
+        		$pdata = [];
+        		$pdata["keyword"] = $value;
+        		$pdata["pinyin"] = $p->permalink($value);
+        		$pdata["count"] = 1;
+        		$pdata["time"] = $time;
+        		DB::insert($pdata,"keyword_count_all");
+        	}
+        }
+
 		$insert_data["ip"] = $ip;
 		$insert_data["time"] = $time;
 		$insert_data["keyword"] = $keyword;
@@ -135,5 +159,15 @@ class Keyword{
 		return $ip;
 	}
 
+	public static function change_text($text){
+		$text_url = "http://172.18.9.65:9200/_analyze?analyzer=query_ansj&text=" . urlencode($text);
+		$return_text = "";
+		$text_json = Search::get_article($text_url);
+		$text_array = json_decode($text_json,true);
+		foreach ($text_array["tokens"] as $key => $value) {
+			$return_text .= $value["token"] . " ";
+		}
+		return $return_text;
+	}
 
 }

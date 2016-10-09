@@ -325,13 +325,17 @@ $(function(){
 		G.go(G.url('index', type, data));
 	}
 
-	function makeURLWithin(varName, value){
+	function makeURLWithin(varName, value, ignorePage){
 		var i, m = {};
 		m[varName] = value;
 		for(i in G.request){
-			if(i != varName && i != 'c' && i != 'a'){
-				m[i] = G.request[i];
+			if(i == varName || i == 'c' || i == 'a'){
+				continue;
 			}
+			if(ignorePage && i == 'page'){
+				continue;
+			}
+			m[i] = G.request[i];
 		}
 		if("timeRange" in m){
 			delete m['time_from'];
@@ -339,6 +343,7 @@ $(function(){
 		}
 		return G.url('index', originType, m);
 	}
+
 
 	function goOrigin(){
 		G.go(G.url('index', originType, options));

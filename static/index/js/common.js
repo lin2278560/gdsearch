@@ -72,7 +72,7 @@ $(function(){
 				var k = $(this).attr('key');
 				map[k] = this;
 				if(this.tagName == 'A' || this.tagName == 'a'){
-					$(this).attr('href', makeURLWithin(varName, k));
+					$(this).attr('href', makeURLWithin(varName, k, true));
 				}
 			});
 			if(varName in G.request && G.request[varName] in map){

@@ -325,6 +325,9 @@ class SearchController extends BaseController{
         	// $data["Document"]["indexnum"] = $data["Document"]["INDEXNUM"];
         	// unset($data["Document"]["INDEXNUM"]);
         	$data["Document"]["url"] = $data["Document"]["URL"];
+        	if ($data["Document"]["url"] == " None  ") {
+        		$data["Document"]["url"] = "javascript:;";
+        	}
         	unset($data["Document"]["URL"]);
         	$data["Document"]["menu_url"] = $data["Document"]["MENU_URL"];
         	unset($data["Document"]["MENU_URL"]);
@@ -348,6 +351,9 @@ class SearchController extends BaseController{
         	// $value["indexnum"] = $value["INDEXNUM"];
         	// unset($value["INDEXNUM"]);
         	$value["url"] = $value["URL"];
+        	if ($value["url"] == " None  ") {
+        		$value["url"] = "javascript:;";
+        	}
         	unset($value["URL"]);
         	$value["menu_url"] = $value["MENU_URL"];
         	unset($value["MENU_URL"]);

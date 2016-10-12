@@ -157,7 +157,7 @@ class Keyword{
 		}
 		else
 		{
-			$ip = "Unknow";
+			$ip = "Unknown";
 		}
 		return $ip;
 	}

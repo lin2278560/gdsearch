@@ -93,6 +93,10 @@ $(function(){
 	}
 
 	function genListItem(d){
-		return $('<div class="list-item inner"><a class="title" href="'+d.url+'" target="_blank">'+d.title+'</a><div class="url">'+d.url+'</div><div class="content">'+d.content+'</div></div>');
+		if(d.url.indexOf('http') >= 0){
+			return $('<div class="list-item inner"><a class="title" href="'+d.url+'" target="_blank">'+d.title+'</a><div class="url">'+d.url+'</div><div class="content">'+d.content+'</div></div>');
+		}else{
+			return $('<div class="list-item inner"><div class="title">'+d.title+'</div><div class="url">'+d.url+'</div><div class="content">'+d.content+'</div></div>');
+		}
 	}
 });

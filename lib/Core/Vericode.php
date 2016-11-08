@@ -4,7 +4,7 @@ namespace Lib\Core;
 
 class VeriCode{
     
-    public static $SESSION_ID = 'simple_code';
+    public static $SESSION_ID = FREYA_SESSION_PREFIX.'simple_code';
     
     # 产生新验证码并显示
     public static function new_code($w = 80, $h = 30, $r = 255, $g = 255, $b = 255){

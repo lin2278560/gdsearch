@@ -19,6 +19,9 @@ class VeriCode{
     
     # 检查验证码是否正确
     public static function check_code($code){
+        if(empty($_SESSION[self::$SESSION_ID])){
+            Log::debug('code_session', $_SESSION);
+        }
         IO::add_to_debug('vrc', $code);
         IO::add_to_debug('vrd', $_SESSION[self::$SESSION_ID]);
         $code = strtoupper($code);

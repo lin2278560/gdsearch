@@ -79,7 +79,7 @@ class SearchController extends BaseController{
 			$time_to = date("Y-m-d",$time_to);
 		}
 		else{
-			$time_to = date("Y-m-d",time());
+			$time_to = date("Y-m-d",time()+86400);
 		}
 		if ($time_from!="") {
 			$time_from = date("Y-m-d",$time_from);
@@ -203,7 +203,7 @@ class SearchController extends BaseController{
 			$time_to = date("Y-m-d",$time_to);
 		}
 		else{
-			$time_to = date("Y-m-d",time());
+			$time_to = date("Y-m-d",time()+86400);
 		}
 		if ($time_from!="") {
 			$time_from = date("Y-m-d",$time_from);

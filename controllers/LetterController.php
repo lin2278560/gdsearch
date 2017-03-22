@@ -21,7 +21,8 @@ class LetterController extends BaseController{
 			'actions' => [
 				'main'    => '主页面',
 				'submit'  => '提交留言内容',
-				'getList' => '列出留言列表'
+				'getList' => '列出留言列表',
+				'delete' => '删除列表'
 			]
 		];
 	}

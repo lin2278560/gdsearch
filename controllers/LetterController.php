@@ -34,8 +34,8 @@ class LetterController extends BaseController{
 		$offset = IO::I('offset', null, 'uint');
 		$count  = IO::I('count', null, 'uint');
 
-		$total  = DB::one("SELECT COUNT(`id`) FROM `letter`");
-		$list   = DB::all("SELECT `id`,`nickname`,`title`,`time` FROM `letter` ORDER BY `id` DESC LIMIT $offset,$count");
+		$total  = DB::one("SELECT COUNT(`id`) FROM `letter` WHERE `status`=1");
+		$list   = DB::all("SELECT `id`,`nickname`,`title`,`time` FROM `letter` WHERE `status`=1 ORDER BY `id` DESC LIMIT $offset,$count");
 		IO::O([
 			'total' => $total,
 			'list'  => $list
@@ -67,6 +67,11 @@ class LetterController extends BaseController{
 		unset($data["vericode"]);
 		DB::insert($data,"letter");
 		IO::O();
+	}
+
+	public function delete(){
+		$id = IO::I("id");
+		DB::update(['status' => 0],'letter',"`id`=:id", ['id' => $id]);
 	}
 
 }

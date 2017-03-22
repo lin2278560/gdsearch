@@ -14,7 +14,7 @@ $(function(){
 
 			refresh : function(page){
 				page = page || 0;
-				var pageSize = 20;
+				var pageSize = 50;
 				var offset   = page * pageSize;
 				letterList.loading(true);
 				G.call('letter.getList', {
@@ -44,6 +44,24 @@ $(function(){
 				});
 				letterList.$.append(e);
 				return e;
+			}
+
+		},
+		events : {
+
+			click : {
+				selector : '.remove',
+				handler  : function(){
+					var $p = $(this).parent().parent();
+					var id = $p[0].tData.id;
+					G.call('letter.delete', {
+						id : id
+					}, function(c, d){
+						$p.remove();
+					}, function(c, m){
+						G.error(m);
+					});
+				}
 			}
 
 		}

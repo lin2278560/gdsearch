@@ -797,10 +797,32 @@ $(function(){
         }
 
         var i;
-
+        var that = this;
+        
         if(option.extend){
             for(i in option.extend){
                 this[i] = option.extend[i];
+            }
+        }
+
+        if(option.events){
+            for(i in option.events){
+                if(option.events[i] instanceof Array){
+                    option.events[i].forEach(function(x){
+                        bindEvent(i, x);
+                    });
+                }else{
+                    bindEvent(i, option.events[i]);
+                }
+            }
+        }
+
+
+        function bindEvent(ev, ob){
+            if(typeof ob == 'function'){
+                that.$.on(ev, ob);
+            }else{
+                that.$.on(ev, ob.selector, ob.handler);
             }
         }
     }

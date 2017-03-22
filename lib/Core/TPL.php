@@ -60,7 +60,6 @@ class TPL{
     }
 
     public static function show($tpl_name, $config = []){
-
         $default_config = [
             'website_url_root' => WEBSITE_URL_ROOT,
             'title'       => TPL_DEFAULT_TITLE,

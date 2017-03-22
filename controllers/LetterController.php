@@ -72,6 +72,7 @@ class LetterController extends BaseController{
 	public function delete(){
 		$id = IO::I("id");
 		DB::update(['status' => 0],'letter',"`id`=:id", ['id' => $id]);
+		IO::O();
 	}
 
 }

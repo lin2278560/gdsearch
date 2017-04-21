@@ -32,11 +32,18 @@ class LetterController extends BaseController{
 	}
 
 	public function getList(){
+		$kw = IO::I("kw","");
 		$offset = IO::I('offset', null, 'uint');
 		$count  = IO::I('count', null, 'uint');
 
-		$total  = DB::one("SELECT COUNT(`id`) FROM `letter` WHERE `status`=1");
-		$list   = DB::all("SELECT `id`,`nickname`,`title`,`time` FROM `letter` WHERE `status`=1 ORDER BY `id` DESC LIMIT $offset,$count");
+		if (!empty($kw)) {
+			$total = DB::one("SELECT COUNT(`id`) FROM `letter` WHERE (`title` LIKE '%$kw%' OR `content` LIKE '%$kw%') AND `status`=1 ORDER BY `id` DESC LIMIT $offset,$count");
+			$list = DB::all("SELECT * FROM `letter` WHERE (`title` LIKE '%$kw%' OR `content` LIKE '%$kw%') AND `status`=1");
+		}
+		else{
+			$total  = DB::one("SELECT COUNT(`id`) FROM `letter` WHERE `status`=1");
+			$list   = DB::all("SELECT `id`,`nickname`,`title`,`time` FROM `letter` WHERE `status`=1 ORDER BY `id` DESC LIMIT $offset,$count");
+		}
 		IO::O([
 			'total' => $total,
 			'list'  => $list

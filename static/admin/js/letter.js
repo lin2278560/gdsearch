@@ -14,12 +14,14 @@ $(function(){
 
 			refresh : function(page){
 				page = page || 0;
+				var kw = $('#ipt-kw').val();
 				var pageSize = 50;
 				var offset   = page * pageSize;
 				letterList.loading(true);
 				G.call('letter.getList', {
 					offset : offset,
-					count  : pageSize
+					count  : pageSize,
+					kw     : kw
 				}, function(c, d){
 					letterList.loading(false);
 					letterList.$.empty();
@@ -68,5 +70,11 @@ $(function(){
 	});
 
 	letterList.refresh();
+
+	ui('#btn-search', {
+		click : function(){
+			letterList.refresh();
+		}
+	});
 
 });

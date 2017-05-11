@@ -39,6 +39,10 @@ class AdminController extends BaseController{
 		$this->show('Admin/Letter');
 	}
 
+	public function letter(){
+		$this->show('Admin/Bin');
+	}
+
 	public function viewLetter(){
 		$id = IO::I('id', null, 'uint');
 		$data = DB::assoc("SELECT * FROM `letter` WHERE `id`=:id", ['id' => $id]);

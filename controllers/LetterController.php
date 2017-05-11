@@ -22,7 +22,9 @@ class LetterController extends BaseController{
 				'main'    => '主页面',
 				'submit'  => '提交留言内容',
 				'getList' => '列出留言列表',
-				'delete'  => '删除列表'
+				'delete'  => '删除列表',
+				'bin'	  => '回收站',
+				'recover' => '恢复留言'
 			]
 		];
 	}

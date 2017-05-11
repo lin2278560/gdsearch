@@ -61,7 +61,8 @@ class AdminController extends BaseController{
 				'usergroup'  => '用户组管理',
 				'character'  => '角色定义',
 				'letter'     => '留言管理',
-				'viewLetter' => '留言查看'
+				'viewLetter' => '留言查看',
+				'bin' 	  	 => '查看回收站'
 			]
 		];
 	}

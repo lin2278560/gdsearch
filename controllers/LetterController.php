@@ -52,6 +52,27 @@ class LetterController extends BaseController{
 		]);
 	}
 
+	public function bin(){
+		$kw = IO::I("kw","");
+		$offset = IO::I('offset', null, 'uint');
+		$count  = IO::I('count', null, 'uint');
+
+		if (!empty($kw)) {
+			$total = DB::one("SELECT COUNT(`id`) FROM `letter` WHERE (`title` LIKE '%$kw%') AND `status`=0 ORDER BY `id` DESC LIMIT $offset,$count");
+			// $total = DB::one("SELECT COUNT(`id`) FROM `letter` WHERE (`title` LIKE '%$kw%' OR `content` LIKE '%$kw%') AND `status`=1 ORDER BY `id` DESC LIMIT $offset,$count");
+			$list = DB::all("SELECT * FROM `letter` WHERE (`title` LIKE '%$kw%') AND `status`=0");
+			// $list = DB::all("SELECT * FROM `letter` WHERE (`title` LIKE '%$kw%' OR `content` LIKE '%$kw%') AND `status`=1");
+		}
+		else{
+			$total  = DB::one("SELECT COUNT(`id`) FROM `letter` WHERE `status`=0");
+			$list   = DB::all("SELECT `id`,`nickname`,`title`,`time` FROM `letter` WHERE `status`=0 ORDER BY `id` DESC LIMIT $offset,$count");
+		}
+		IO::O([
+			'total' => $total,
+			'list'  => $list
+		]);
+	}
+
 	public function submit(){
 		$toCheck = [
 			'nickname', 'name',
@@ -82,6 +103,12 @@ class LetterController extends BaseController{
 	public function delete(){
 		$id = IO::I("id");
 		DB::update(['status' => 0],'letter',"`id`=:id", ['id' => $id]);
+		IO::O();
+	}
+
+	public function recover(){
+		$id = IO::I("id");
+		DB::update(['status' => 1],'letter',"`id`=:id", ['id' => $id]);
 		IO::O();
 	}
 

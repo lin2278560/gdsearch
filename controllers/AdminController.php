@@ -39,7 +39,7 @@ class AdminController extends BaseController{
 		$this->show('Admin/Letter');
 	}
 
-	public function letter(){
+	public function bin(){
 		$this->show('Admin/Bin');
 	}
 

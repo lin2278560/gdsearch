@@ -6,8 +6,9 @@
     "type": "project",
     "require": {
         "php": ">=5.5.9",
-		"smarty/smarty": "^3.1",
-		"electrolinux/phpquery": "^0.9.6",
+        "smarty/smarty": "^3.1",
+        "electrolinux/phpquery": "^0.9.6",
+        "swiftmailer/swiftmailer" : "v5.4.4",
         "overtrue/pinyin":"~3.0"
     },
 	"autoload": {

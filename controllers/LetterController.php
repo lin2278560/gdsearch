@@ -5,6 +5,7 @@ use Lib\Core\Data;
 use Lib\Core\Log;
 use Lib\Core\DB;
 use Lib\Core\IO;
+use Lib\Search\Mail;
 
 class LetterController extends BaseController{
 
@@ -24,7 +25,9 @@ class LetterController extends BaseController{
 				'getList' => '列出留言列表',
 				'delete'  => '删除列表',
 				'bin'	  => '回收站',
-				'recover' => '恢复留言'
+				'recover' => '恢复留言',
+				'reject'	=> '拒绝回复',
+				'reply'		=> '回复留言',
 			]
 		];
 	}
@@ -112,6 +115,65 @@ class LetterController extends BaseController{
 		$id = IO::I("id");
 		DB::update(['status' => 1],'letter',"`id`=:id", ['id' => $id]);
 		IO::O();
+	}
+
+	public function reply(){
+		$id = IO::I("id");
+		$replyMsg = IO::I("content");
+		$content = IO::filt_script($replyMsg);
+
+		$letter = DB::assoc("SELECT * from `letter` WHERE `id` = :id LIMIT 1", ['id' => $id]);
+		if(!$letter){
+			IO::E("该留言不存在");
+		}elseif ($letter['status'] != 1){
+			IO::E("该留言已经回复过了，不能再次回复");
+		}elseif(!$letter['email']){
+			IO::E("该留言的邮箱地址为空");
+		}
+
+		$title = '关于"'.$letter['title'].'"留言的回复';
+		if(Mail::send($letter['email'], $title, $content) != 0){
+			DB::update(['status' => 3], 'letter', "`id`=:id", ['id' => $id]);
+			DB::insert([
+				'id' => $id,
+				'from_status' => $letter['status'],
+				'to_status' => 3,
+				'content' => $content,
+				'time' => time(),
+				], 'letter_reply');
+			IO::O();
+		}
+
+		IO::E("回复邮箱失败");
+	}
+
+	public function reject(){
+		$id = IO::I("id");
+
+		$letter = DB::assoc("SELECT * from `letter` WHERE `id` = :id LIMIT 1", ['id' => $id]);
+		if(!$letter){
+			IO::E("该留言不存在");
+		}elseif ($letter['status'] != 1){
+			IO::E("该留言已经回复过了，不能再次回复");
+		}elseif(!$letter['email']){
+			IO::E("该留言的邮箱地址为空");
+		}
+
+		$title = '关于"'.$letter['title'].'"留言的回复';
+		$content = '您好，您的留言涉及投诉举报事项，建议您通过广东信访网“网上信访”栏目（http://www.gdwsxf.gov.cn/web/wsxf.html?menuType=wsxf）提交请求。';
+		if(Mail::send($letter['email'], $title, $content) != 0){
+			DB::update(['status' => 2], 'letter', "`id`=:id", ['id' => $id]);
+			DB::insert([
+				'id' => $id,
+				'from_status' => $letter['status'],
+				'to_status' => 2,
+				'content' => $content,
+				'time' => time(),
+				], 'letter_reply');
+			IO::O();
+		}
+
+		IO::E("回复邮箱失败");
 	}
 
 }

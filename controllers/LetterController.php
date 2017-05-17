@@ -117,6 +117,9 @@ class LetterController extends BaseController{
 		IO::O();
 	}
 
+	/*
+	status: 0已删除,1未处理,2已拒绝,3已回复
+	*/
 	public function reply(){
 		$id = IO::I("id");
 		$replyMsg = IO::I("content");
@@ -125,7 +128,7 @@ class LetterController extends BaseController{
 		$letter = DB::assoc("SELECT * from `letter` WHERE `id` = :id LIMIT 1", ['id' => $id]);
 		if(!$letter){
 			IO::E("该留言不存在");
-		}elseif ($letter['status'] != 1){
+		}elseif(!$letter['status'] && $letter['status'] != 1){
 			IO::E("该留言已经回复过了，不能再次回复");
 		}elseif(!$letter['email']){
 			IO::E("该留言的邮箱地址为空");
@@ -153,7 +156,7 @@ class LetterController extends BaseController{
 		$letter = DB::assoc("SELECT * from `letter` WHERE `id` = :id LIMIT 1", ['id' => $id]);
 		if(!$letter){
 			IO::E("该留言不存在");
-		}elseif ($letter['status'] != 1){
+		}elseif(!$letter['status'] && $letter['status'] != 1){
 			IO::E("该留言已经回复过了，不能再次回复");
 		}elseif(!$letter['email']){
 			IO::E("该留言的邮箱地址为空");

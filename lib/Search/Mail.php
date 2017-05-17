@@ -10,8 +10,8 @@ use Lib\Nfh\Nfh;
 class Mail{
 
     public static function send($users, $title, $body, $ssl=null){
-        $admin_mail = "nfhregister@126.com";
-        $password = "nf15975506115";
+        $admin_mail = "vanchen1@126.com";
+        $password = "test123";
         $smtp_server = "smtp.126.com";
         $port = 25;
         $admin_name = "广东省人民政府办公厅";

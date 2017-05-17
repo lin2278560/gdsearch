@@ -128,7 +128,7 @@ class LetterController extends BaseController{
 		$letter = DB::assoc("SELECT * from `letter` WHERE `id` = :id LIMIT 1", ['id' => $id]);
 		if(!$letter){
 			IO::E("该留言不存在");
-		}elseif($letter['status'] && $letter['status'] != 1){
+		}elseif(!is_null($letter['status']) && $letter['status'] != 1){
 			IO::E("该留言已经回复过了，不能再次回复");
 		}elseif(!$letter['email']){
 			IO::E("该留言的邮箱地址为空");
@@ -156,21 +156,21 @@ class LetterController extends BaseController{
 		$letter = DB::assoc("SELECT * from `letter` WHERE `id` = :id LIMIT 1", ['id' => $id]);
 		if(!$letter){
 			IO::E("该留言不存在");
-		}elseif($letter['status'] && $letter['status'] != 1){
+		}elseif(!is_null($letter['status']) && $letter['status'] != 1){
 			IO::E("该留言已经回复过了，不能再次回复");
 		}elseif(!$letter['email']){
 			IO::E("该留言的邮箱地址为空");
 		}
 
 		$title = '关于"'.$letter['title'].'"留言的回复';
-		$content = '您好，您的留言涉及投诉举报事项，建议您通过广东信访网“网上信访”栏目（http://www.gdwsxf.gov.cn/web/wsxf.html?menuType=wsxf）提交请求。';
+		$content = '    您好，您的留言涉及投诉举报事项，建议您通过广东信访网“网上信访”栏目（http://www.gdwsxf.gov.cn/web/wsxf.html?menuType=wsxf）提交请求。';
 		if(Mail::send($letter['email'], $title, $content) != 0){
 			DB::update(['status' => 2], 'letter', "`id`=:id", ['id' => $id]);
 			DB::insert([
 				'id' => $id,
 				'from_status' => $letter['status'],
 				'to_status' => 2,
-				'content' => $content,
+				// 'content' => $content,
 				'time' => time(),
 				], 'letter_reply');
 			IO::O();

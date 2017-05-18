@@ -119,6 +119,11 @@ class TPL{
             $_RG['user'] = User::low_safe($_RG['user']);
         }
 
+        // 不可删除的管理员不显示删除按钮和回收站
+        if(!empty($config['user']['group']) && $config['user']['group'] == 3){
+            $config['not_show_del'] = true;
+        }
+
         $s->assign($config);
         $s->assign('_RG', $_RG);
         $s->assign('_RG_JSON', json_encode($_RG, JSON_UNESCAPED_UNICODE));

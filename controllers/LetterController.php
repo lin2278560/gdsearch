@@ -51,7 +51,7 @@ class LetterController extends BaseController{
 		}
 		else{
 			$total  = DB::one("SELECT COUNT(`id`) FROM `letter` WHERE `status`>=1");
-			$list   = DB::all("SELECT `id`,`nickname`,`title`,`time` FROM `letter` WHERE `status`>=1 ORDER BY `id` DESC LIMIT $offset,$count");
+			$list   = DB::all("SELECT `id`,`nickname`,`title`,`time`,`status` FROM `letter` WHERE `status`>=1 ORDER BY `id` DESC LIMIT $offset,$count");
 		}
 		IO::O([
 			'total' => $total,

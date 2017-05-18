@@ -28,6 +28,8 @@ class LetterController extends BaseController{
 				'recover' => '恢复留言',
 				'reject'	=> '拒绝回复',
 				'reply'		=> '回复留言',
+				'replyList' => '已回复的留言列表',
+				'rejectList' => '已拒绝回复的留言列表',
 			]
 		];
 	}
@@ -42,14 +44,14 @@ class LetterController extends BaseController{
 		$count  = IO::I('count', null, 'uint');
 
 		if (!empty($kw)) {
-			$total = DB::one("SELECT COUNT(`id`) FROM `letter` WHERE (`title` LIKE '%$kw%') AND `status`=1 ORDER BY `id` DESC LIMIT $offset,$count");
+			$total = DB::one("SELECT COUNT(`id`) FROM `letter` WHERE (`title` LIKE '%$kw%') AND `status`>=1 ORDER BY `id` DESC LIMIT $offset,$count");
 			// $total = DB::one("SELECT COUNT(`id`) FROM `letter` WHERE (`title` LIKE '%$kw%' OR `content` LIKE '%$kw%') AND `status`=1 ORDER BY `id` DESC LIMIT $offset,$count");
-			$list = DB::all("SELECT * FROM `letter` WHERE (`title` LIKE '%$kw%') AND `status`=1");
+			$list = DB::all("SELECT * FROM `letter` WHERE (`title` LIKE '%$kw%') AND `status`>=1");
 			// $list = DB::all("SELECT * FROM `letter` WHERE (`title` LIKE '%$kw%' OR `content` LIKE '%$kw%') AND `status`=1");
 		}
 		else{
-			$total  = DB::one("SELECT COUNT(`id`) FROM `letter` WHERE `status`=1");
-			$list   = DB::all("SELECT `id`,`nickname`,`title`,`time` FROM `letter` WHERE `status`=1 ORDER BY `id` DESC LIMIT $offset,$count");
+			$total  = DB::one("SELECT COUNT(`id`) FROM `letter` WHERE `status`>=1");
+			$list   = DB::all("SELECT `id`,`nickname`,`title`,`time` FROM `letter` WHERE `status`>=1 ORDER BY `id` DESC LIMIT $offset,$count");
 		}
 		IO::O([
 			'total' => $total,
@@ -70,7 +72,7 @@ class LetterController extends BaseController{
 		}
 		else{
 			$total  = DB::one("SELECT COUNT(`id`) FROM `letter` WHERE `status`=0");
-			$list   = DB::all("SELECT `id`,`nickname`,`title`,`time` FROM `letter` WHERE `status`=0 ORDER BY `id` DESC LIMIT $offset,$count");
+			$list   = DB::all("SELECT `id`,`nickname`,`title`,`time`,`status` FROM `letter` WHERE `status`=0 ORDER BY `id` DESC LIMIT $offset,$count");
 		}
 		IO::O([
 			'total' => $total,
@@ -177,6 +179,48 @@ class LetterController extends BaseController{
 		}
 
 		IO::E("回复邮箱失败");
+	}
+
+	public function replyList(){
+		$kw = IO::I("kw","");
+		$offset = IO::I('offset', null, 'uint');
+		$count  = IO::I('count', null, 'uint');
+
+		if(!empty($kw)) {
+			$kwCond = "AND `title` LIKE '%$kw%'";
+		}
+		else{
+			$kwCond = '';
+		}
+
+		$total  = DB::one("SELECT COUNT(`id`) FROM `letter` WHERE `status` = 3 $kwCond");
+		$list   = DB::all("SELECT `id`,`nickname`,`title`,`time`,`status` FROM `letter` WHERE `status` = 3 $kwCond ORDER BY `id` DESC LIMIT $offset,$count");
+
+		IO::O([
+			'total' => $total,
+			'list'  => $list
+		]);
+	}
+
+	public function rejectList(){
+		$kw = IO::I("kw","");
+		$offset = IO::I('offset', null, 'uint');
+		$count  = IO::I('count', null, 'uint');
+
+		if(!empty($kw)) {
+			$kwCond = "AND `title` LIKE '%$kw%'";
+		}
+		else{
+			$kwCond = '';
+		}
+
+		$total  = DB::one("SELECT COUNT(`id`) FROM `letter` WHERE `status` = 2 $kwCond");
+		$list   = DB::all("SELECT `id`,`nickname`,`title`,`time`,`status` FROM `letter` WHERE `status` = 2 $kwCond ORDER BY `id` DESC LIMIT $offset,$count");
+
+		IO::O([
+			'total' => $total,
+			'list'  => $list
+		]);
 	}
 
 }

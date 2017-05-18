@@ -282,7 +282,7 @@ body{
         padding:0 16px 0 24px;
         background-color:@blue-normal;
         border-left:4px @blue-active solid;
-        font-size:14px; 
+        font-size:14px;
         color:#fff;
     }
     :before{
@@ -310,7 +310,7 @@ body{
         height:100px;
         position:absolute;
         top:@ph-top;
-        
+
         .h-center{
             width:@page-width;
             height:100px;
@@ -931,7 +931,7 @@ body{
         width:auto;
         min-width:1px;
         overflow:hidden;
-        
+
     }
     .button{
         height:@e-h-b - 2;
@@ -957,7 +957,7 @@ body{
     position:relative;
     box-sizing:border-box;
     .transition-on;
-    
+
     .label{
         margin:0;
         border:none;
@@ -1111,7 +1111,7 @@ body{
     width:100%;
     height:@e-h - 1;
     border-bottom:@border-weak;
-    
+
     > .tab{
         width:auto;
         min-width:1px;
@@ -1767,7 +1767,7 @@ body{
     min-height:@l-h;
     height:auto;
     overflow:hidden;
-    line-height:@l-h;   
+    line-height:@l-h;
     border-bottom:@border-weak;
 
     > .td{
@@ -1994,6 +1994,19 @@ body{
             box-sizing:border-box;
             width:80%;
             height:32px;
+            line-height:32px;
+            padding:4px 8px;
+            border:@border-weak;
+            font-size:14px;
+            color:#333;
+            outline:none;
+        }
+        > textarea{
+            display:block;
+            margin:12px auto;
+            box-sizing:border-box;
+            width:80%;
+            height:256px;
             line-height:32px;
             padding:4px 8px;
             border:@border-weak;
@@ -2240,5 +2253,5 @@ body{
 }
 ::-webkit-scrollbar-thumb{
     background-color:#999;
-    box-shadow:0 0 1px rgba(0, 0, 0, 0.1); 
+    box-shadow:0 0 1px rgba(0, 0, 0, 0.1);
 }

@@ -75,21 +75,21 @@ class TPL{
             'static_version' => STATIC_VERSION
         ];
 
-                
+
         $tpl_config = self::loadConfig($tpl_name, $config);
-        
+
         if($tpl_config != false){
             foreach($tpl_config as $key => $value){
                 $default_config[$key] = $value;
             }
         }
-                
+
         foreach($default_config as $key => $value) {
             if(!isset($config[$key])){
                 $config[$key] = $default_config[$key];
             }
         }
-        
+
         # JS
         foreach ($config['default_js'] as $jsf) {
             $config['js'][] = $jsf;
@@ -101,7 +101,7 @@ class TPL{
             $config['css'][] = $csf;
         }
         $config['css'] = ($config['css']);
-        
+
         $tpl = new TPL();
 
         $s = new \Smarty;
@@ -112,17 +112,19 @@ class TPL{
         $s->setCompileDir(RUNTIME_DIR_CACHE);
 
         $s->registerObject('tpl', $tpl);
-        
+
         global $_RG;
 
         if(!empty($_RG['user']['salt'])){
             $_RG['user'] = User::low_safe($_RG['user']);
         }
 
+        $_auth_del = true;
         // 不可删除的管理员不显示删除按钮和回收站
         if(!empty($config['user']['group']) && $config['user']['group'] == 3){
-            $config['not_show_del'] = true;
+            $_auth_del = false;
         }
+        $s->assign('_auth_del', $_auth_del);
 
         $s->assign($config);
         $s->assign('_RG', $_RG);
@@ -137,7 +139,7 @@ class TPL{
         $s->display(self::getDir($config['frame']));
         die();
     }
-    
+
     public static function extendConfig($origin, $added){
 
         if(is_string($origin)){
@@ -164,7 +166,7 @@ class TPL{
         }
         return $origin;
     }
-    
+
     public static function loadConfig($tpl_name, $config = null){
         $class_name = 'Tpl\\'.str_replace('/', '\\', $tpl_name);
         $config_class = new $class_name;

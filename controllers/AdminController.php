@@ -9,7 +9,7 @@ use Lib\Core\DB;
 class AdminController extends BaseController{
 
 	public function __construct(){
-		
+
 	}
 
 	public function main(){
@@ -43,6 +43,14 @@ class AdminController extends BaseController{
 		$this->show('Admin/Bin');
 	}
 
+	public function pending(){
+		$this->show('Admin/Pending');
+	}
+
+	public function reply(){
+		$this->show('Admin/Reply');
+	}
+
 	public function viewLetter(){
 		$id = IO::I('id', null, 'uint');
 		$data = DB::assoc("SELECT * FROM `letter` WHERE `id`=:id", ['id' => $id]);
@@ -64,7 +72,9 @@ class AdminController extends BaseController{
 				'character'  => '角色定义',
 				'letter'     => '留言管理',
 				'viewLetter' => '留言查看',
-				'bin' 	  	 => '查看回收站'
+				'bin' 	  	 => '查看回收站',
+				'pending' 	  	 => '待处理留言',
+				'reply' 	  	 => '已回复留言',
 			]
 		];
 	}

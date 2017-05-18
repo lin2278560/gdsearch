@@ -1,0 +1,48 @@
+ <div class="col visi all">
+    <div class="row x1">
+        <div class="label free as-hd with-icon">
+            <i class="entypo-icon-mail"></i>
+            <span>已回复的留言列表</span>
+        </div>
+        <div class="col right margin-right">
+            <input type="text" class="input x2 slim" id="ipt-kw">
+            <div class="button slim with-icon margin-left" id="btn-search">
+                <i class="icon-search"></i>
+            </div>
+        </div>
+    </div>
+ </div>
+
+ <div class="col visi all margin-top">
+    <div class="letter-list" id="letter-list">
+
+    </div>
+    <div class="row x1">
+        <div class="simple-pages" id="sp-letter"></div>
+    </div>
+ </div>
+
+ <div class="tpl" id="tpl">
+    <div class="item" data-node="dwLetterItem">
+        <div class="title" data-node="dwTitle"></div>
+        <div class="nickname" data-node="dwNickname">
+            <i class="entypo-icon-user"></i>
+            <span data-node="dwText"></span>
+        </div>
+        <div class="date" data-node="dwDate">
+            <i class="entypo-icon-calendar"></i>
+            <span data-node="dwText"></span>
+        </div>
+        <div class="ctrl" data-node="dwCtrl">
+            <div class="status" data-node='dwStatus'></div>
+            <{if $_auth_del}>
+                <div class="ctrl-item remove ft" data-flex="删除">
+                    <i class="icon-trash"></i>
+                </div>
+            <{/if}>
+            <a class="ctrl-item ft" data-flex="查看详细" data-action="view" data-node="dwView" target="_blank">
+                <i class="entypo-icon-right-open-big"></i>
+            </a>
+        </div>
+    </div>
+ </div>

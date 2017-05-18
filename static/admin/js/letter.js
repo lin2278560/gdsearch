@@ -36,6 +36,7 @@ $(function(){
 			},
 
 			add : function(d){
+				console.log(d);
 				var e = tpl.dwLetterItem.clone();
 				e.tData = d;
 				e.dwTitle.innerHTML = d.title;
@@ -44,6 +45,25 @@ $(function(){
 				e.dwCtrl.dwView.href = G.url('admin', 'viewLetter', {
 					id : d.id
 				});
+
+				switch(d.status){
+
+					case '1':
+						e.dwCtrl.dwStatus.innerHTML = '待处理';
+						$(e.dwCtrl.dwStatus).addClass('pending');
+						break;
+
+					case '2':
+						e.dwCtrl.dwStatus.innerHTML = '无效留言';
+						$(e.dwCtrl.dwStatus).addClass('reject');
+						break;
+
+					case '3':
+						e.dwCtrl.dwStatus.innerHTML = '已回复';
+						$(e.dwCtrl.dwStatus).addClass('replied');
+						break;
+				}
+
 				letterList.$.append(e);
 				return e;
 			}

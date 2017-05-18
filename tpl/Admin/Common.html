@@ -47,11 +47,24 @@
                 </a>
             </div>
 			<div class="field">
+				<a class="item" data-c="admin" data-a="pending">
+					<span>待处理</span>
+				</a>
+			</div>
+			<div class="field">
+				<a class="item" data-c="admin" data-a="reply">
+					<span>已回复</span>
+				</a>
+			</div>
+			<{if $_auth_del}>
+			<div class="field">
 				<a class="item" data-c="admin" data-a="bin">
 					<span>回收站</span>
 				</a>
 			</div>
+			<{/if}>
         </div>
+        <{if $_auth_del}>
     	<div class="group">
     		<div class="hd">
     			<i class="entypo-icon-user"></i>
@@ -78,6 +91,7 @@
                 </a>
     		</div>
     	</div>
+    	<{/if}>
     </div>
     <div class="admin-page">
 	    <!--  嵌入页面从此处开始  -->

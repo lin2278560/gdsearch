@@ -1,6 +1,6 @@
 $(function(){
-        
-    
+
+
     var ui = window.ui = function(element_selector, option){
         var $e = $(element_selector);
         if($e.length == 1){
@@ -13,7 +13,7 @@ $(function(){
             return initWidget(this, option);
         });
     };
-    
+
 
     var defaultClass = {
         'tpl'          : 'Tpl',
@@ -39,7 +39,7 @@ $(function(){
         return m;
     })();
 
-    var $body   = $(document.body), 
+    var $body   = $(document.body),
         $window = $(window);
 
     var _tpl = null;
@@ -67,7 +67,7 @@ $(function(){
         }
         return obj;
     }
-    
+
     function initWidget(e, option){
         var i;
         var cl = e.className.split(' ');
@@ -81,7 +81,7 @@ $(function(){
         return new ui.Widget(option);
     }
 
-    
+
     function initOption(default_option, option){
         option = option || {};
         var i;
@@ -92,7 +92,7 @@ $(function(){
         }
         return option;
     }
-    
+
     // Make Element
     function mk(what, option){
         var d  = document.createElement(what);
@@ -111,7 +111,7 @@ $(function(){
         }
         return d;
     }
-    
+
     // Make Div
     function mkdiv(option, content){
         if(typeof option == "string"){
@@ -122,11 +122,11 @@ $(function(){
                 option.innerHTML = content;
             }
         }else if(typeof option == "object"){
-            
+
         }
         return mk('div', option);
     }
-    
+
     ui.extendClass = function(className, type){
         defaultClass[className] = type;
         classReverseMap[type] = className;
@@ -135,7 +135,7 @@ $(function(){
     ui.mk         = mk;
     ui.mkdiv      = mkdiv;
     ui.initNode   = initNode;
-    
+
     // Mon's offset of year
     ui.mon_offset = function (year, month) {
         var i, offset;
@@ -360,7 +360,7 @@ $(function(){
             $(tf).css({
                 left  : offset.left,
                 top   : offset.top + eleH,
-                width : eleW 
+                width : eleW
             });
         };
         tf.show = function(){
@@ -500,7 +500,7 @@ $(function(){
                     ui.hideFrameMask();
                     $(win).remove();
                 }
-            }            
+            }
         }
         var wgTip = ui(win.dwContent.dwTip);
         $(win.dwCtrl.dwBtnFrame.dwBtnOk).click(ok);
@@ -517,6 +517,59 @@ $(function(){
                 return false;
             }
         });
+        return win;
+    }
+    ui.inputArea = function(option){
+        ui.showFrameMask();
+        var win = ui.fromTpl('dwInputArea');
+        if(typeof option == "string"){
+            option = {
+                text : option
+            };
+        }else{
+            option = option || {};
+        }
+        if(option.text){
+            win.dwContent.dwText.innerHTML = option.text;
+        }
+        if(option.title){
+            win.dwTitle.innerHTML = option.title;
+        }
+        if(option.value){
+            win.dwContent.dwInput.value = option.value;
+        }
+        function cancel(){
+            option.cancelCallback && option.cancelCallback(option);
+            ui.hideFrameMask();
+            $(win).remove();
+        }
+        function ok(){
+            var checkRet;
+            if(option.check && ((checkRet = option.check(win.dwContent.dwInput.value)) !== true)){
+                wgTip.warn(checkRet);
+                return;
+            }
+            if(!option.okCallback){
+                ui.hideFrameMask();
+                $(win).remove();
+            }else{
+                if(option.okCallback(win.dwContent.dwInput.value, option) === false){
+
+                }else{
+                    ui.hideFrameMask();
+                    $(win).remove();
+                }
+            }
+        }
+        var wgTip = ui(win.dwContent.dwTip);
+        $(win.dwCtrl.dwBtnFrame.dwBtnOk).click(ok);
+        $(win.dwCtrl.dwBtnFrame.dwBtnCancel).click(cancel);
+        $(win.dwContent.dwInput).focus(function(){
+            wgTip.hide();
+        });
+        $(win.dwClose).click(cancel);
+        $body.append(win);
+        ui.position.screenCenter(win);
         return win;
     }
     ui.select = function(option){
@@ -623,13 +676,13 @@ $(function(){
         function getFromInput(){
             var h = parseInt(rco.dwRow3.dwHour.value) || 0,
                 i = parseInt(rco.dwRow3.dwMin.value ) || 0,
-                s = parseInt(rco.dwRow3.dwSec.value ) || 0, 
+                s = parseInt(rco.dwRow3.dwSec.value ) || 0,
                 y = parseInt(rco.dwRow2.dwYear.value) || 0,
                 m = parseInt(rco.dwRow2.dwMon.value ) || 0,
                 d = parseInt(rco.dwRow2.dwDay.value ) || 0;
             if(y < 1970){
                 y = 1970;
-            } 
+            }
             date.setYear(y);
             date.setMonth(m - 1);
             date.setDate(d);
@@ -699,7 +752,7 @@ $(function(){
         ui.position.screenCenter(win);
         return win;
     }
-    
+
     ui.CHECK_RULE = {
         NOT_EMPTY : function(text, prefix){
             if(text.length <= 0){
@@ -738,7 +791,7 @@ $(function(){
             return LANG.NEED_CORRECT_EMAIL;
         }
     };
-    
+
     ui.check = function(widgets){
         var i;
         for(i = 0; i < widgets.length; i ++){
@@ -757,12 +810,12 @@ $(function(){
         }
         return false;
     };
-    
+
     ui.Widget = function(option){
         if(!option){
             return;
         }
-        
+
         option = initOption({
             initNode : true,
             initNodeWithCallback : false
@@ -771,34 +824,34 @@ $(function(){
         this.option = option;
         this.element = option.element || mkdiv(option.className);
         this.$ = $(this.element);
-                
+
         if(typeof this.element == 'string'){
             this.element = $(this.element)[0];
         }
 
         this.element.linkedUIWidget = this;
-        
+
         if(option.initNode){
             initNode(this.element);
         }
-        
+
         if(option.tip){
             this.tip = new ui.WidgetTip({
                 element : option.tip
             });
         }
-        
+
         if(option.check){
             this.checkRule = option.check;
         }
-        
+
         if(option.prefix){
             this.prefix = option.prefix;
         }
 
         var i;
         var that = this;
-        
+
         if(option.extend){
             for(i in option.extend){
                 this[i] = option.extend[i];
@@ -899,7 +952,7 @@ $(function(){
         var that = this;
 
         option = initOption({
-            
+
         }, option);
 
         ui.Widget.call(this, option);
@@ -918,7 +971,7 @@ $(function(){
             }
         }
     }
-    
+
     ui.WidgetTabBar = function(option){
         if(!option){
             return;
@@ -930,24 +983,24 @@ $(function(){
             selected : null,
             onswitch : null
         }, option);
-        
+
         ui.Widget.call(this, option);
-        
-        
+
+
         var $e = $(this.element);
         var that = this;
         var sel;
-        
+
         $e.on('click', '.' + option.tabClassName, function(e){
             var k = $(this).attr('key');
             that.switchTo(k);
         });
-        
+
         var i;
         this.view = {};
         for(i in option.view){
             this.linkView(i, option.view[i]);
-        }   
+        }
         if(option.onswitch){
             this.onswitch = option.onswitch;
         }
@@ -1001,7 +1054,7 @@ $(function(){
             return this.switchTo(v);
         }
     }
-    
+
     ui.WidgetView = function(option){
         if(!option){
             return;
@@ -1009,9 +1062,9 @@ $(function(){
         option = initOption({
             className : 'view'
         }, option);
-        
+
         ui.Widget.call(this, option);
-        
+
     }
     ui.WidgetView.prototype = new ui.Widget();
     ui.WidgetView.prototype.hide = function(){
@@ -1038,7 +1091,7 @@ $(function(){
         }, option);
 
         ui.Widget.call(this, option);
-        
+
         var $e = $(this.element);
 
         if(option.inputTips){
@@ -1116,7 +1169,7 @@ $(function(){
             return this;
         }
     }
-    
+
     ui.WidgetTextbox = function(option){
         if(!option){
             return;
@@ -1128,9 +1181,9 @@ $(function(){
             onchange : null,
             onblur : null
         }, option);
-        
+
         ui.Widget.call(this, option);
-        
+
         var $e = $(this.element);
         var $label = $e.find('.' + option.labelClassName);
         var $input = $e.find('input');
@@ -1144,7 +1197,7 @@ $(function(){
         }else{
             this.label = $label[0];
         }
-        
+
         if($input.length == 0){
             this.input = mk('input', option);
             $input = $(this.input);
@@ -1158,11 +1211,11 @@ $(function(){
         }
         this.onchange = option.onchange;
         this.onblur = option.onblur;
-        
+
         if((!this.prefix) && this.label){
             this.prefix = this.label.innerHTML;
         }
-        
+
         $input.focus(function(){
             $e.addClass('focus');
         }).blur(function(){
@@ -1182,7 +1235,7 @@ $(function(){
         }).change(function(){
             that.valueChanged(true);
         });
-        
+
         if(option.limit){
             this.setLimit(option.limit);
         }
@@ -1239,8 +1292,8 @@ $(function(){
         }
         return this;
     }
-    
-    
+
+
     ui.WidgetToggle = function(option){
         if(!option){
             return;
@@ -1251,9 +1304,9 @@ $(function(){
             toggle : null,
             disabled : false
         }, option);
-        
+
         ui.Widget.call(this, option);
-        
+
         var $e = $(this.element);
         this.checked = option.checked;
         if($e.hasClass('checked')){
@@ -1291,7 +1344,7 @@ $(function(){
         }
         return this;
     }
-    
+
     ui.WidgetButton = function(option){
         if(!option){
             return;
@@ -1300,11 +1353,11 @@ $(function(){
             click    : null,
             disabled : false
         }, option);
-        
+
         ui.Widget.call(this, option);
-        
+
         var $e = $(this.element);
-        
+
         var that = this;
 
         this.onclick = option.click;
@@ -1323,7 +1376,7 @@ $(function(){
         if(option.disabled){
             this.disabled(true);
         }
-        
+
     }
     ui.WidgetButton.prototype = new ui.Widget();
     ui.WidgetButton.prototype.loading = function(v){
@@ -1342,7 +1395,7 @@ $(function(){
             this.$.removeClass('disabled');
         }
     }
-    
+
     ui.WidgetTip = function(option){
         if(!option){
             return;
@@ -1350,9 +1403,9 @@ $(function(){
         option = initOption({
             click : null
         }, option);
-        
+
         ui.Widget.call(this, option);
-        
+
         var $e = this.$.hide();
     }
     ui.WidgetTip.prototype = new ui.Widget();
@@ -1405,9 +1458,9 @@ $(function(){
             next_icon : '<i class="icon-angle-right"></i>',
             gotoPage : null
         }, option);
-        
+
         ui.Widget.call(this, option);
-        
+
         var $e = this.$.on('click', '.item', function(){
             if(option.gotoPage){
                 option.gotoPage(this.pageIndex);
@@ -1429,13 +1482,13 @@ $(function(){
             end = all;
         }
         this.$.html('');
-        
+
         function mkpg(n, c){
             var d = mkdiv((i == cur ? 'item cur' : 'item'), c || n);
             d.pageIndex = n;
             return d;
         }
-        
+
         if(start != 1){
             this.$.append(mkpg(cur - 1, this.prev_icon));
             this.$.append(mkpg(1));
@@ -1451,7 +1504,7 @@ $(function(){
             this.$.append(mkpg(cur + 1, this.next_icon));
         }
     }
-    
+
     ui.WidgetSearch = function(option){
         if(!option){
             return;
@@ -1460,20 +1513,20 @@ $(function(){
             buttonClassName : 'search-button',
             onsearch : null
         }, option);
-        
+
         ui.Widget.call(this, option);
-        
+
         var $e = this.$;
         var that = this;
-        
+
         var $input = $e.find('input');
         var $btn   = $e.find('.' + option.buttonClassName);
-        
+
         this.input  = $input[0];
         this.button = $btn[0];
-        
+
         this.onsearch = option.onsearch;
-        
+
         $input.keydown(function(e){
             if(e.keyCode == 13){
                 that.search();
@@ -1498,7 +1551,7 @@ $(function(){
     }
 
     ui.WidgetSearch.prototype.valueChanged = function(){
-        
+
     }
 
     ui.WidgetSelect = function(option){
@@ -1516,9 +1569,9 @@ $(function(){
             options : {},
             slim : false
         }, option);
-        
+
         ui.Widget.call(this, option);
-        
+
         var $e = $(this.element);
 
         if($e.hasClass('slim')){
@@ -1609,9 +1662,9 @@ $(function(){
             var w   = $(that.optionList).outerWidth();
             var h   = $(that.optionList).outerHeight();
             if(e){
-                if( e.clientX > ofs.left - 12 && 
-                    e.clientX < ofs.left + w + 12 && 
-                    e.clientY > ofs.top - 4 && 
+                if( e.clientX > ofs.left - 12 &&
+                    e.clientX < ofs.left + w + 12 &&
+                    e.clientY > ofs.top - 4 &&
                     e.clientY < ofs.top + h + 4){
                     return;
                 }
@@ -1652,7 +1705,7 @@ $(function(){
         return this;
     }
     ui.WidgetSelect.prototype.val = function(k){
-        if(k !== undefined){            
+        if(k !== undefined){
             return this.select(k);
         }else{
             return this.value;
@@ -1716,7 +1769,7 @@ $(function(){
         this.options[value] = {
             name    : title,
             element : e
-        };            
+        };
         this.optionsCount ++;
         ef.appendChild(e);
         this.optionList.appendChild(ef);
@@ -1733,9 +1786,9 @@ $(function(){
             page_current : 1,
             gotoPage : null
         }, option);
-        
+
         ui.Widget.call(this, option);
-        
+
         var $e = $(this.element);
 
         this.pageElement = ui.fromTpl(option.tpl);
@@ -1804,7 +1857,7 @@ $(function(){
         this.time_start = option.start;
         this.time_end   = option.end;
         ui.Widget.call(this, option);
-        
+
         var $e = this.$;
         var that = this;
         var rf = this.rangeFrame = _tpl.dwDateRangeFrame.clone();
@@ -1858,9 +1911,9 @@ $(function(){
     };
     ui.WidgetDateRange.prototype.updateDisplay = function(){
         this.$.html(
-            moment(this.time_start * 1000).format("YYYY年MM月DD日") + 
+            moment(this.time_start * 1000).format("YYYY年MM月DD日") +
             ' 至 ' +
-            moment(this.time_end * 1000).format("YYYY年MM月DD日") 
+            moment(this.time_end * 1000).format("YYYY年MM月DD日")
         );
         return this;
     };

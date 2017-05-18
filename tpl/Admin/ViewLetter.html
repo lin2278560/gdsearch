@@ -18,16 +18,56 @@
 		<div class="label free margin-left">
 			<span>内容：</span>
 		</div>
+		<{if $letter_data['status'] == 1}>
+			<div class="letter-view-status pending">待处理</div>
+		<{elseif $letter_data['status'] == 2}>
+			<div class="letter-view-status reject">无效留言</div>
+		<{elseif $letter_data['status'] == 3}>
+			<div class="letter-view-status replied">已回复</div>
+		<{/if}>
 	</div>
 	<div class="hor-split-margin"></div>
-	<div class="row x8">
+	<div class="row x5">
 		<div class="auto-text-out">
 			<div class="in">
-				<textarea><{$letter_data['content']}></textarea>
+				<textarea readonly="readonly"><{$letter_data['content']}></textarea>
+			</div>
+		</div>
+	</div>
+	<{if $letter_data['reply']|@count neq 0 and $letter_data['status'] neq 2}>
+		<div class="row x1">
+			<div class="label free margin-left">
+				<span>回复内容：</span>
+			</div>
+		</div>
+	<{/if}>
+	<{foreach $letter_data['reply'] as $item}>
+		<div class="hor-split-margin"></div>
+		<div class="row x4">
+			<div class="auto-text-out">
+				<div class="in">
+					<textarea readonly="readonly"><{$item}></textarea>
+				</div>
+			</div>
+		</div>
+	<{/foreach}>
+</div>
+<{if $letter_data['status'] == 1}>
+<div class="col visi all margin-top">
+	<div class="row">
+		<div class="col left half">
+			<div class="row x1 col center">
+				<div class="button" id="btn-reject-letter">无效留言</div>
+			</div>
+		</div>
+		<div class="col right half">
+			<div class="row x1 col center">
+				<div class="button" id="btn-reply-letter">回复</div>
 			</div>
 		</div>
 	</div>
 </div>
+<{/if}>
 <div class="col visi all margin-top">
 	<div class="row x1">
 		<div class="label free margin-left">
@@ -100,3 +140,8 @@
 		</div>
 	</div>
 </div>
+<script type="text/javascript">
+	window._letterId = <{$letter_data['id']}>;
+	window._letterStatus = <{$letter_data['status']}>;
+	window._letter = <{$letter_data['reply']}>
+</script>

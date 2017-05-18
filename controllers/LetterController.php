@@ -29,7 +29,7 @@ class LetterController extends BaseController{
 				'reject'	=> '拒绝回复',
 				'reply'		=> '回复留言',
 				'replyList' => '已回复的留言列表',
-				'rejectList' => '已拒绝回复的留言列表',
+				'pendingList' => '待回复的留言列表',
 			]
 		];
 	}
@@ -202,7 +202,7 @@ class LetterController extends BaseController{
 		]);
 	}
 
-	public function rejectList(){
+	public function pendingList(){
 		$kw = IO::I("kw","");
 		$offset = IO::I('offset', null, 'uint');
 		$count  = IO::I('count', null, 'uint');

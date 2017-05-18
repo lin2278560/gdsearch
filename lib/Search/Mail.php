@@ -10,9 +10,9 @@ use Lib\Nfh\Nfh;
 class Mail{
 
     public static function send($users, $title, $body, $ssl=null){
-        $admin_mail = "vanchen1@126.com";
-        $password = "test123";
-        $smtp_server = "smtp.126.com";
+        $admin_mail = "szly@gov.southcn.com";
+        $password = "huchunhua2015";
+        $smtp_server = "smtp.gov.southcn.com";
         $port = 25;
         $admin_name = "广东省人民政府办公厅";
         $transport = \Swift_SmtpTransport::newInstance($smtp_server, $port,$ssl)

@@ -12,7 +12,7 @@ class Mail{
     // $toEmails : string | [string()]
     public static function send($toEmails, $title, $body){
         $admin_mail = "gdwyhdszs@126.com";
-        $password = "ywt83135073";
+        $password = "cgljjywtysm8313";
         $smtp_server = "smtp.126.com";
         $port = 25;
         $admin_name = "广东省人民政府办公厅";

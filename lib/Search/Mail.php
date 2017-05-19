@@ -22,7 +22,7 @@ class Mail{
         ->setPassword($password);
         $mailer = \Swift_Mailer::newInstance($transport);
         $message = \Swift_Message::newInstance();
-        $message->setContentType('text/html');
+        $message->setContentType('text/plain');
         $message->setSubject($title)
         ->setBody(
         $body

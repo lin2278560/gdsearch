@@ -8,7 +8,7 @@ $(function(){
 				okCallback : function(v){
 					G.call('letter.reply', {
 						id : window._letterId,
-						content : escape(v)
+						content : v
 					}, function(c, d){
 						location.reload();
 					}, function(c, m){

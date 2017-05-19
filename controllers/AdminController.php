@@ -55,6 +55,8 @@ class AdminController extends BaseController{
 		$id = IO::I('id', null, 'uint');
 		$data = DB::assoc("SELECT * FROM `letter` WHERE `id`=:id", ['id' => $id]);
 		$replyContents = DB::all_one("SELECT `content` FROM `letter_reply` WHERE `id`=:id", ['id' => $id]);
+		// 去掉空内容
+		$replyContents = array_filter($replyContents, function($var) {return strlen($var);});
 		$data['reply'] = $replyContents;
 		$this->show('Admin/ViewLetter', [
 			'letter_data' => $data

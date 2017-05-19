@@ -214,8 +214,8 @@ class LetterController extends BaseController{
 			$kwCond = '';
 		}
 
-		$total  = DB::one("SELECT COUNT(`id`) FROM `letter` WHERE `status` = 2 $kwCond");
-		$list   = DB::all("SELECT `id`,`nickname`,`title`,`time`,`status` FROM `letter` WHERE `status` = 2 $kwCond ORDER BY `id` DESC LIMIT $offset,$count");
+		$total  = DB::one("SELECT COUNT(`id`) FROM `letter` WHERE `status` = 1 $kwCond");
+		$list   = DB::all("SELECT `id`,`nickname`,`title`,`time`,`status` FROM `letter` WHERE `status` = 1 $kwCond ORDER BY `id` DESC LIMIT $offset,$count");
 
 		IO::O([
 			'total' => $total,

@@ -22,7 +22,7 @@ $(function(){
 	ui('#btn-reject-letter', {
 		click : function(){
 			ui.confirm({
-				text : '确定要标记为无效留言吗？',
+				text : '确定要标记为投诉处理吗？',
 				okCallback : function(){
 					G.call('letter.reject', {
 						id : window._letterId

@@ -54,7 +54,7 @@ $(function(){
 						break;
 
 					case '2':
-						e.dwCtrl.dwStatus.innerHTML = '无效留言';
+						e.dwCtrl.dwStatus.innerHTML = '投诉处理';
 						$(e.dwCtrl.dwStatus).addClass('reject');
 						break;
 

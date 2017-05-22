@@ -21,7 +21,7 @@
 		<{if $letter_data['status'] == 1}>
 			<div class="letter-view-status pending">待处理</div>
 		<{elseif $letter_data['status'] == 2}>
-			<div class="letter-view-status reject">无效留言</div>
+			<div class="letter-view-status reject">投诉处理</div>
 		<{elseif $letter_data['status'] == 3}>
 			<div class="letter-view-status replied">已回复</div>
 		<{/if}>
@@ -57,7 +57,7 @@
 	<div class="row">
 		<div class="col left half">
 			<div class="row x1 col center">
-				<div class="button" id="btn-reject-letter">无效留言</div>
+				<div class="button" id="btn-reject-letter">投诉处理</div>
 			</div>
 		</div>
 		<div class="col right half">

@@ -24,6 +24,8 @@
 			<div class="letter-view-status reject">投诉处理</div>
 		<{elseif $letter_data['status'] == 3}>
 			<div class="letter-view-status replied">已回复</div>
+		<{elseif $letter_data['status'] == 4}>
+			<div class="letter-view-status invalid">无法回复</div>
 		<{/if}>
 	</div>
 	<div class="hor-split-margin"></div>
@@ -55,12 +57,17 @@
 <{if $letter_data['status'] == 1}>
 <div class="col visi all margin-top">
 	<div class="row">
-		<div class="col left half">
+		<div class="col third left">
+			<div class="row x1 col center">
+				<div class="button" id="btn-invalid-letter">无法回复</div>
+			</div>
+		</div>
+		<div class="col third left">
 			<div class="row x1 col center">
 				<div class="button" id="btn-reject-letter">投诉处理</div>
 			</div>
 		</div>
-		<div class="col right half">
+		<div class="col third left">
 			<div class="row x1 col center">
 				<div class="button" id="btn-reply-letter">回复</div>
 			</div>

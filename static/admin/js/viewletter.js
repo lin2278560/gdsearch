@@ -36,6 +36,21 @@ $(function(){
 		}
 	});
 
-
+	ui('#btn-invalid-letter', {
+		click : function(){
+			ui.confirm({
+				text : '确定要标记为无法回复吗？',
+				okCallback : function(){
+					G.call('letter.invalid', {
+						id : window._letterId
+					}, function(c, d){
+						location.reload();
+					}, function(c, m){
+						G.error(m);
+					});
+				}
+			});
+		}
+	});
 
 });

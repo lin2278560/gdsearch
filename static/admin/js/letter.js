@@ -62,6 +62,11 @@ $(function(){
 						e.dwCtrl.dwStatus.innerHTML = '已回复';
 						$(e.dwCtrl.dwStatus).addClass('replied');
 						break;
+
+					case '4':
+						e.dwCtrl.dwStatus.innerHTML = '无法回复';
+						$(e.dwCtrl.dwStatus).addClass('invalid');
+						break;
 				}
 
 				letterList.$.append(e);

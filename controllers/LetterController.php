@@ -27,6 +27,7 @@ class LetterController extends BaseController{
 				'bin'	  => '回收站',
 				'recover' => '恢复留言',
 				'reject'	=> '拒绝回复',
+				'invalid'	=> '标记为回复失败',
 				'reply'		=> '回复留言',
 				'replyList' => '已回复的留言列表',
 				'pendingList' => '待回复的留言列表',
@@ -120,7 +121,7 @@ class LetterController extends BaseController{
 	}
 
 	/*
-	status: 0已删除,1未处理,2已拒绝,3已回复
+	status: 0已删除,1未处理,2已拒绝,3已回复,4回复失败
 	*/
 	public function reply(){
 		$id = IO::I("id");
@@ -179,6 +180,28 @@ class LetterController extends BaseController{
 		}
 
 		IO::E("回复邮箱失败");
+	}
+
+	public function invalid(){
+		$id = IO::I("id");
+
+		$letter = DB::assoc("SELECT * from `letter` WHERE `id` = :id LIMIT 1", ['id' => $id]);
+		if(!$letter){
+			IO::E("该留言不存在");
+		}elseif(!is_null($letter['status']) && $letter['status'] != 1){
+			IO::E("该留言已经回复过了，不能标记为回复失败");
+		}
+
+		DB::update(['status' => 4], 'letter', "`id`=:id", ['id' => $id]);
+		DB::insert([
+			'id' => $id,
+			'from_status' => $letter['status'],
+			'to_status' => 4,
+			// 'content' => $content,
+			'time' => time(),
+			], 'letter_reply');
+
+		IO::O();
 	}
 
 	public function replyList(){

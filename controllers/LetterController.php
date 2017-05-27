@@ -89,6 +89,14 @@ class LetterController extends BaseController{
 			'title','content',
 			'vericode'
 		];
+
+		$ip = \Lib\Core\Http::getUserIP();
+		$now = time();
+		$lastTime = DB::one("SELECT `time` FROM `letter_ip` WHERE `ip`=:ip", [ip => $ip]);
+		if(!empty($lastTime) && ($now - $lastTime) < 3600*2){
+			IO::E('留言过于频繁，两个小时内只能留言一次！');
+		}
+
 		$data = [];
 		foreach ($toCheck as $k) {
 			$data[$k] = IO::I($k);
@@ -102,10 +110,13 @@ class LetterController extends BaseController{
 		if (!IO::match_email($data['email'])) {
 			IO::E('请输入正确的邮箱地址！');
 		}
-		$data["time"] = time();
+		$data["time"] = $now;
 		unset($data["vericode"]);
-		DB::insert($data,"letter");
-		IO::O();
+		if(DB::insert($data,"letter")){
+			DB::replace(['ip' => $ip, 'time' => $now], 'letter_ip');
+			IO::O();
+		}
+		IO::E('留言失败！');
 	}
 
 	public function delete(){

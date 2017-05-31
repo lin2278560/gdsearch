@@ -2,11 +2,6 @@
 
 namespace Lib\Search;
 
-use Lib\Core\DB;
-use Lib\Core\IO;
-use Lib\Core\Http;
-use Lib\Nfh\Nfh;
-
 class Mail{
 
     // $toEmails : string | [string()]

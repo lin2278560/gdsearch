@@ -6,6 +6,7 @@ use Lib\Core\Log;
 use Lib\Core\DB;
 use Lib\Core\IO;
 use Lib\Search\Mail;
+use Lib\Search\Sms;
 
 class LetterController extends BaseController{
 
@@ -31,6 +32,7 @@ class LetterController extends BaseController{
 				'reply'		=> '回复留言',
 				'replyList' => '已回复的留言列表',
 				'pendingList' => '待回复的留言列表',
+				'sms' => '获取短信验证码',
 			]
 		];
 	}
@@ -102,11 +104,14 @@ class LetterController extends BaseController{
 			$data[$k] = IO::I($k);
 		}
 		$data["idcard"] = IO::I("idcard","");
-		if(!\Lib\Core\Vericode::check_code($data['vericode'])){
+		if(!Sms::check($data['vericode'])){
 			IO::E('验证码不正确！');
 		}
-		\Lib\Core\Vericode::flush_code();
-		# TODO
+		// 获取验证码手机号码和提交留言表单的手机号码要一致
+		if($_SESSION['sms_mobile'] != $data['phone']){
+			IO::E('验证码不正确！！');
+		}
+
 		if (!IO::match_email($data['email'])) {
 			IO::E('请输入正确的邮箱地址！');
 		}
@@ -117,6 +122,25 @@ class LetterController extends BaseController{
 			IO::O();
 		}
 		IO::E('留言失败！');
+	}
+
+	public function sms(){
+		$mobile = IO::I('phone');
+
+		$r = Sms::code($mobile);
+		switch ($r) {
+			case 1:
+				$_SESSION['sms_mobile'] = $mobile;
+				IO::O();
+				break;
+			case 2:
+				IO::E('获取验证码过于频繁！');
+				break;
+			
+			default:
+				IO::E('发送验证码失败！');
+				break;
+		}
 	}
 
 	public function delete(){

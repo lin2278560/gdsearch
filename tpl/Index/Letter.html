@@ -63,6 +63,7 @@
 				<span class="needed">*</span>
 				联系电话：
 			</div>
+            <div class="warn">请输入正确的手机号码</div>
 			<input type="text" id="phone">
 		</div>
 	</div>
@@ -113,7 +114,9 @@
 			<input type="text" id="vericode">
 		</div>
 		<div class="vericode-frame" id="vericode-frame">
-			
+			获取验证码
+		</div>
+		<div class="vericode-loading" id="vericode-loading">
 		</div>
 		<div class="letter-submit-button" id="letter-submit-button">
 			提交
@@ -152,6 +155,9 @@
             <div class="weui_cell_hd"><label class="weui_label">电话</label></div>
             <div class="weui_cell_bd weui_cell_primary">
                 <input class="weui_input" id="mobi-phone"/>
+            </div>
+            <div class="weui_cell_ft">
+                <i class="weui_icon_warn"></i>
             </div>
         </div>
         <div class="weui_cell">
@@ -192,13 +198,15 @@
         </div>
     </div>
     <div class="weui_cells weui_cells_form">
-    	<div class="weui_cell weui_vcode">
+    	<div class="weui_cell">
             <div class="weui_cell_hd"><label class="weui_label">验证码</label></div>
             <div class="weui_cell_bd weui_cell_primary">
                 <input class="weui_input" placeholder="请输入验证码" id="mobi-vericode"/>
             </div>
-            <div class="weui_cell_ft" id="mobi-vericode-frame">
-                <img />
+            <div class="weui_btn weui_btn_mini weui_btn_primary weui_btn_primary_disabled" id="mobi-vericode-loading">
+            </div>
+            <div class="weui_btn weui_btn_mini weui_btn_primary" id="mobi-vericode-frame">
+                获取验证码
             </div>
         </div>
     </div>

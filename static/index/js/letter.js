@@ -9,22 +9,70 @@ $(function(){
 		'content', 'vericode'
 	];
 
+	var phoneNum;
+
 	$('#vericode-frame').click(function(){
-		$(this).empty();
-		var img = new Image();
-		img.src = G.url('vericode', 'simple', {
-			t : Math.random()
+
+		if(!phoneNum){
+			alert('请填入正确的手机号码');
+			return;
+		}
+
+		var loading = $('#vericode-loading');
+		var btn = $('#vericode-frame');
+
+		G.call('letter.sms', {
+			phone : phoneNum
+		}, function(c, d){
+
+			$(btn).hide();
+			$(loading).show();
+			checkLoading(60, loading, btn);
+
+		}, function(c, m){
+			G.error(m);
 		});
-		$(this).append(img);
+
 	});
 
+	var checkLoading = function(count, loading, btn){
+
+		$('#vericode-loading').text(count);
+
+		setTimeout(function(){
+			if(count > 1){
+				count--;
+				checkLoading(count, loading, btn);
+			}else{
+				$(btn).show();
+				$(loading).hide();
+			}
+		},1000);
+
+	}
+
 	$('#mobi-vericode-frame').click(function(){
-		$(this).empty();
-		var img = new Image();
-		img.src = G.url('vericode', 'simple', {
-			t : Math.random()
+
+		if(!phoneNum){
+			alert('请填入正确的手机号码');
+			return;
+		}
+
+		var loading = $('#mobi-vericode-loading');
+		var btn = $('#mobi-vericode-frame');
+
+		G.call('letter.sms', {
+			phone : phoneNum
+		}, function(c, d){
+
+			$(btn).hide();
+			$(loading).show();
+			checkLoading(60, loading, btn);
+
+		}, function(c, m){
+			G.error(m);
 		});
-		$(this).append(img);
+
 	});
 
 	$('#vericode').focus(function(){
@@ -109,6 +157,26 @@ $(function(){
 			$(this).parent().parent().removeClass('weui_cell_warn');
 		}else{
 			$(this).parent().parent().addClass('weui_cell_warn');
+		}
+	});
+
+	$('#phone').blur(function(){
+		if($(this).val().match(/^1(3|4|5|7|8)[0-9]\d{8}$/)){
+			$(this).parent().removeClass('warning');
+			phoneNum = $(this).val();
+		}else{
+			$(this).parent().addClass('warning');
+			phoneNum = null;
+		}
+	});
+
+	$('#mobi-phone').blur(function(){
+		if($(this).val().match(/^1(3|4|5|7|8)[0-9]\d{8}$/)){
+			$(this).parent().parent().removeClass('weui_cell_warn');
+			phoneNum = $(this).val();
+		}else{
+			$(this).parent().parent().addClass('weui_cell_warn');
+			phoneNum = null;
 		}
 	});
 

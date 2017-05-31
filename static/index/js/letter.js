@@ -37,7 +37,7 @@ $(function(){
 
 	var checkLoading = function(count, loading, btn){
 
-		$('#vericode-loading').text(count);
+		$(loading).text(count);
 
 		setTimeout(function(){
 			if(count > 1){
@@ -75,22 +75,6 @@ $(function(){
 
 	});
 
-	$('#vericode').focus(function(){
-		if(this.inited){
-			return;
-		}
-		$('#vericode-frame').click();
-		this.inited = true;
-	});
-
-	$('#mobi-vericode').focus(function(){
-		if(this.inited){
-			return;
-		}
-		$('#mobi-vericode-frame').click();
-		this.inited = true;
-	});
-
 	$('#content').focus(function(){
 		if($(this).val() == '请在此输入您所要留言的内容'){
 			$(this).val('');
@@ -119,6 +103,7 @@ $(function(){
 			$(that).html('提交');
 		}, function(c, m){
 			alert(m);
+			$(that).removeClass('loading');
 			$(that).html('提交');
 		});
 	});
@@ -140,6 +125,7 @@ $(function(){
 			$(that).html('提交');
 		}, function(c, m){
 			alert(m);
+			$(that).removeClass('loading');
 			$(that).html('提交');
 		});
 	});

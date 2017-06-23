@@ -273,6 +273,110 @@ class SearchController extends BaseController{
         IO::O(["total"=>$total,"page_total"=>$page_total,"list"=>$list]);
 	}
 
+	public function filecount(){
+		$file_url = "http://172.18.8.31/zwgk?prefix_url=006939748";
+		$keywords = IO::I("keywords","");
+		$time_from = IO::I("time_from","");
+		$time_to = IO::I("time_to","");
+		$page = IO::I("page","1");
+		$order = "1";
+		$filenumType = IO::I("filenumType","");
+		$filenumYear = IO::I("filenumYear","");
+		$filenumNum = IO::I("filenumNum","");
+		$menucat = IO::I("menucat","1001");
+		$themecat = IO::I("themecat","");
+		$subcat = IO::I("subcat","");
+
+		$position 		= IO::I("position" , "all");
+		$keywords_not = IO::I("keywords_not" , "");
+		if ($keywords=="") {
+			$keywords = "*:*";
+			$qtext = "";
+		}
+		else{
+			$qtext = $this->change_text($keywords);
+		}
+		if ($page=="1") {
+			Keyword::count_keywords($keywords,"file");			
+		}
+
+		switch ($position) {
+			case 'all':
+			case '':
+				$keyword = "&q=" . urlencode($qtext) . "&exclude=" . urlencode($keywords_not);
+				break;
+			case 'title':
+				$keyword = "&q=" . urlencode($qtext) . "&stitle=" . urlencode($qtext) . "&texclude=" . urlencode($keywords_not);
+				break;
+			case 'content':
+				$keyword = "&q=" . urlencode($qtext) . "&scontent=" . urlencode($qtext) . "&cexclude=" . urlencode($keywords_not);
+				break;
+		}
+
+
+		if ($menucat=="") {
+			$menucat="1001";
+		}
+
+		$filenum = "";
+		if ($filenumType!="") {
+			$filenum = $filenumType;
+		}
+		if ($filenumYear!="") {
+			if ($filenum!="") {
+				$filenum .= " " . $filenumYear;
+			}
+			else{
+				$filenum = $filenumYear;
+			}
+		}
+		if ($filenumNum!="") {
+			if ($filenum!="") {
+				$filenum .= " " . $filenumNum;
+			}
+			else{
+				$filenum = $filenumNum;
+			}
+		}
+		if ($filenum!="") {
+			$filenum = urlencode($filenum);
+		}
+
+		if ($filenumType=="粤府") {
+			$filenum .= "&filenumexclude=函令办";
+		}
+
+		$check = str_replace(" ", "", $keywords);
+		if ($check == ""&&$time_from ==""&&$time_to=="") {
+			IO::E("请输入关键词");
+		}
+
+		if ($time_to!="") {
+			$time_to = date("Y-m-d",$time_to);
+		}
+		else{
+			$time_to = date("Y-m-d",time()+86400);
+		}
+		if ($time_from!="") {
+			$time_from = date("Y-m-d",$time_from);
+		}
+		else{
+			$time_from = "1990-01-01";
+		}
+		$keywords = urlencode($keywords);
+		
+		$file_url = $file_url . $keyword . "&start_applytime=" . $time_from . "&endtime=" . $time_to .  "&menucat=" .$menucat . "&filenum=" .$filenum . "&order_pubdate=" . $order . "&page=" . $page . "&themecat=" . $themecat . "&subcat=" . $subcat . "&areaid=0";
+		$res = Search::get_article($file_url);
+        $data = simplexml_load_string($res,'SimpleXMLElement',LIBXML_NOCDATA);
+        $data = Search::object_array($data);  //Object -> array
+		if ($data["information"]["page_count"]=="0") {
+			IO::O(["total"=>"0"]);
+		}
+
+        $total = $data["information"]["count"];
+        IO::O(["total"=>$total]);
+	}
+
 	public function gb(){
 		$gb_url = "http://172.18.8.31:8080/gb?";
 		$keywords = IO::I("keywords","");

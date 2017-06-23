@@ -1,17 +1,6 @@
 $(function(){
-    $('#left-part>.item').click(function (e) {
-        G.go(G.url('index', 'file', {
-        	filenumType:$(this).attr('key'),
-			keywords:$('#input-keywords').val()
-		}));
-    });
-
-    $('#left-part>.item').each(function () {
-		if($(this).attr('key') == G.request['filenumType']){
-			$(this).addClass('selected');
-		} else if(!G.request['filenumType']){
-			$('#left-part>.item').eq(0).addClass('selected');
-		}
+    $('#left-part').bindOptionPart({
+        varname : 'filenumType'
     });
 
 	$('#sort-line').bindOptionPart({
@@ -50,6 +39,7 @@ $(function(){
 
 	$('#advance-search-button-show').mousedown(function(){
 		window.advance = true;
+		sessionStorage.setItem('isShow','1');
 		$('.advance-search').slideDown();
 		$('.normal-search').slideUp();
 		$('#left-part').slideUp();
@@ -57,12 +47,14 @@ $(function(){
 	});
 	$('#advance-search-button-fold').mousedown(function(){
 		window.advance = false;
+        sessionStorage.setItem('isShow','0');
 		$('.advance-search').slideUp();
 		$('.normal-search').slideDown();
         $('#left-part').slideDown();
 		return false;
 	});
-	if("advance" in G.request){
+
+	if("advance" in G.request && sessionStorage.getItem('isShow') == '1'){
 		$('#advance-search-button-show').mousedown();
 	}
 

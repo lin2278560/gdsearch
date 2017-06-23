@@ -119,14 +119,14 @@ $(function(){
 			alert(m);
 		});
 
-        $('#left-part>.item').each(function () {
-			m.filenumType = $(this).attr('key');
-			var that = this;
-            G.call('search.filecount',m,function (c,d) {
-				$(that).find('span').text(d.total);
-            },function () {
-                $(that).find('span').text(0);
-            });
-        });
+        // $('#left-part>.item').each(function () {
+			// m.filenumType = $(this).attr('key');
+			// var that = this;
+        //     G.call('search.filecount',m,function (c,d) {
+			// 	$(that).find('span').text(d.total);
+        //     },function () {
+        //         $(that).find('span').text(0);
+        //     });
+        // });
 	})(G.request);
 });

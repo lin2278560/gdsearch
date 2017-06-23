@@ -121,11 +121,11 @@ $(function(){
 
         $('#left-part>.item').each(function () {
 			m.filenumType = $(this).attr('key');
+			var that = this;
             G.call('search.filecount',m,function (c,d) {
-            	console.log(c,d);
-				$(this).find('span').text(1);
+				$(that).find('span').text(d.total);
             },function () {
-                $(this).find('span').text(0);
+                $(that).find('span').text(0);
             });
         });
 	})(G.request);

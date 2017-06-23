@@ -120,14 +120,12 @@ $(function(){
 		});
 
         $('#left-part>item').each(function () {
-			var keyValue = $(this).attr('key');
-			m.filenumType = keyValue;
+			m.filenumType = $(this).attr('key');
             G.call('search.filecount',m,function (c,d) {
-				$(this).find('span').text(d.page_total);
+				$(this).find('span').text(d.total);
             },function () {
                 $(this).find('span').text(0);
             });
         });
 	})(G.request);
-
 });

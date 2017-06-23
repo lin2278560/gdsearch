@@ -85,3 +85,7 @@
 .file > .item:hover {
   color: #b5300e;
 }
+.file > .item > span {
+  float: right;
+  font-size: 16px;
+}

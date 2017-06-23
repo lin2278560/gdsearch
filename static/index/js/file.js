@@ -1,4 +1,6 @@
 $(function(){
+
+
     $('#left-part').bindOptionPart({
         varname : 'filenumType'
     });
@@ -116,6 +118,16 @@ $(function(){
 		}, function(c, m){
 			alert(m);
 		});
+
+        $('#left-part>item').each(function () {
+			var keyValue = $(this).attr('key');
+			m.filenumType = keyValue;
+            G.call('search.filecount',m,function (c,d) {
+				$(this).find('span').text(d.page_total);
+            },function () {
+                $(this).find('span').text(0);
+            });
+        });
 	})(G.request);
 
 });

@@ -11,7 +11,7 @@ $(function(){
 		var n = $(this).index();
 
 		$underline.stop().animate({
-			left : n * 127
+			left : n * 158.75
 		}, 100);
 
 		key = $(this).attr('key');

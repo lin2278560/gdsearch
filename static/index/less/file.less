@@ -1,1 +1,26 @@
 @import "../../core/less/ui.var.less";
+
+.left-part {
+  box-sizing: border-box;
+  padding:0 20px;
+}
+
+.file {
+  width: 180px;
+  border-right: none;
+  & > h1 {
+    font-size: 16px;
+    box-sizing: border-box;
+    padding-left: 10px;
+  }
+  & > .item {
+    text-indent: 0;
+    box-sizing: border-box;
+    padding-left: 10px;
+    border-bottom: none;
+    &:hover{
+      color: #b5300e;
+    }
+  }
+
+}

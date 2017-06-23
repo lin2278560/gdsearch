@@ -1,4 +1,18 @@
 $(function(){
+    $('#left-part>.item').click(function (e) {
+        G.go(G.url('index', 'file', {
+        	filenumType:$(this).attr('key'),
+			keywords:$('#input-keywords').val()
+		}));
+    });
+
+    $('#left-part>.item').each(function () {
+		if($(this).attr('key') == G.request['filenumType']){
+			$(this).addClass('selected');
+		} else if(!G.request['filenumType']){
+			$('#left-part>.item').eq(0).addClass('selected');
+		}
+    });
 
 	$('#sort-line').bindOptionPart({
 		varname : 'order'
@@ -38,12 +52,14 @@ $(function(){
 		window.advance = true;
 		$('.advance-search').slideDown();
 		$('.normal-search').slideUp();
+		$('#left-part').slideUp();
 		return false;
 	});
 	$('#advance-search-button-fold').mousedown(function(){
 		window.advance = false;
 		$('.advance-search').slideUp();
 		$('.normal-search').slideDown();
+        $('#left-part').slideDown();
 		return false;
 	});
 	if("advance" in G.request){

@@ -25,6 +25,7 @@ class SearchController extends BaseController{
 				'main'  => '主页面',
 				'local' => '本站搜索',
 				'file'  => '文件搜索',
+				'filecount'	=> '文件总数',
 				'bsxx'  => '办事信息',
 			]
 		];

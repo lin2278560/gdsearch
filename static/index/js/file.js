@@ -119,7 +119,7 @@ $(function(){
 			alert(m);
 		});
 
-        $('#left-part>item').each(function () {
+        $('#left-part>.item').each(function () {
 			m.filenumType = $(this).attr('key');
             G.call('search.filecount',m,function (c,d) {
 				$(this).find('span').text(d.total);
